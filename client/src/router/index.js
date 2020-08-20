@@ -1,7 +1,7 @@
-import Vue from './node_modules/vue';
+import Vue from 'vue';
 
 // 1. 引入Vue-Router
-import VueRouter from './node_modules/vue-router'
+import VueRouter from 'vue-router'
 
 
 import Home from '../pages/Home.vue'
