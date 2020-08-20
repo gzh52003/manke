@@ -1,21 +1,24 @@
-import Vue from './node_modules/vue';
+import Vue from 'vue';
 
 // 1. 引入Vue-Router
-import VueRouter from './node_modules/vue-router'
+import VueRouter from 'vue-router'
 
 
-import Home from '../pages/Home.vue'
+import Home from '@/pages/Home.vue'
 
-import User from '../pages/user/Default.vue'
-import UserList from '../pages/user/List.vue'
-import UserAdd from '../pages/user/Add.vue'
-import UserEdit from '../pages/user/Edit.vue'
+import User from '@/pages/user/Default.vue'
+import UserList from '@/pages/user/List.vue'
+import UserAdd from '@/pages/user/Add.vue'
+import UserEdit from '@/pages/user/Edit.vue'
 
-import Order from '../pages/Order.vue'
-import Goods from '../pages/Goods.vue'
-import Reg from '../pages/Reg.vue'
-import Login from '../pages/Login.vue'
-import NotFound from '../pages/NotFound.vue'
+import Order from '@/pages/Order/Order.vue'
+import ordermenu from '@/pages/Order/ordmenu.vue'
+import ordstatus from '@/pages/Order/ordstatus.vue'
+
+import Goods from '@/pages/Goods.vue'
+import Reg from '@/pages/Reg.vue'
+import Login from '@/pages/Login.vue'
+import NotFound from '@/pages/NotFound.vue'
 
 
 // 2. 使用VueRouter
@@ -55,7 +58,17 @@ const router = new VueRouter({
         },
         {
             path: '/order',
-            component: Order
+            component: Order,
+            //订单管理系统
+            children: [{
+                path: 'ordstatus',
+                component: ordstatus
+            },
+            {
+                path: 'ordermenu/:id',
+                component:ordermenu
+            }]
+
         },
         {
             path: '/goods',

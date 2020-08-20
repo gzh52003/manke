@@ -3,7 +3,7 @@
     <el-header class="header">
       <el-row>
         <el-col :span="12" class="logo">
-          <i class="el-icon-connection"></i>金锋后台管理系统
+          <i class="el-icon-connection"></i>漫客网后台管理系统
         </el-col>
         <el-col :span="12" style="text-align:right">
           <el-button type="text">注册</el-button>
@@ -26,7 +26,7 @@
           router
         >
           <template v-for="item in menu">
-            <el-menu-item :index="item.path" :key="item.path"  v-if="!item.submenu">
+            <el-menu-item :index="item.path" :key="item.path"  v-if="!item.submenu && !item.ordmenu">
               <i :class="item.icon" style="color:#fff"></i>
               {{item.text}}
             </el-menu-item>
@@ -35,6 +35,7 @@
                 <i :class="item.icon" style="color:#fff"></i>{{item.text}}
               </template>
               <el-menu-item :key="sub.path" :index="item.path+sub.path" v-for="sub in item.submenu">{{sub.text}}</el-menu-item>
+              <el-menu-item :key="ord.path" :index="item.path+ord.path" v-for="ord in item.ordmenu">{{ord.text}}</el-menu-item>
             </el-submenu>
           </template>
         </el-menu>
@@ -91,6 +92,16 @@ export default {
           text: "订单管理",
           path: "/order",
           icon: "el-icon-s-order",
+           ordmenu: [
+            {
+              text: "订单列表",
+              path: "ordermenu/:id",
+            },
+            {
+              text: "订单状态",
+              path: "/ordstatus",
+            },
+          ],
         },
       ],
       currentIndex: 0,

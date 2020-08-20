@@ -6,10 +6,10 @@
 <script>
 export default {
     beforeDestroy(){
-        console.log('beforeDestroy')
+        // console.log('beforeDestroy')
     },
     destroyed(){
-        console.log('destroyed')
+        // console.log('destroyed')
     }
 }
 </script>

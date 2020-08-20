@@ -1,9 +1,9 @@
-import Vue from './node_modules/vue'
-import ElementUI from './node_modules/element-ui'
+import Vue from 'vue'
+import ElementUI from 'element-ui'
 import App from './App.vue'
 import router from './router'
 import request from './utils/request';
-import './node_modules/element-ui/lib/theme-chalk/index.css';
+import '../node_modules/element-ui/lib/theme-chalk/index.css';
 
 Vue.use(ElementUI);
 
