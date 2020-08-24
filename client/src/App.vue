@@ -41,16 +41,18 @@
         </el-menu>
       </el-aside>
       <el-main>
-        <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-          <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-          <el-breadcrumb-item>活动详情</el-breadcrumb-item>
-        </el-breadcrumb>
-        <div style="padding:15px 0;">
+         <div style="padding:15px 0;">
           <router-view />
         </div>
       </el-main>
+        <!-- <el-breadcrumb separator-class="el-icon-arrow-right">
+          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/user' }">用戶管理</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/goods' }">商品管理</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/order' }">订单管理</el-breadcrumb-item>
+        </el-breadcrumb> -->
+       
+     
     </el-container>
   </el-container>
 </template>
@@ -95,12 +97,12 @@ export default {
            ordmenu: [
             {
               text: "订单列表",
-              path: "ordermenu/:id",
+              path: "/ordermenu/",
             },
-            {
-              text: "订单状态",
-              path: "/ordstatus",
-            },
+            // {
+            //   text: "订单状态",
+            //   path: "/ordstatus",
+            // },
           ],
         },
       ],

@@ -12,6 +12,7 @@ import UserAdd from '@/pages/user/Add.vue'
 import UserEdit from '@/pages/user/Edit.vue'
 
 import Order from '@/pages/Order/Order.vue'
+// console.log(Order)
 import ordermenu from '@/pages/Order/ordmenu.vue'
 import ordstatus from '@/pages/Order/ordstatus.vue'
 
@@ -60,12 +61,15 @@ const router = new VueRouter({
             path: '/order',
             component: Order,
             //订单管理系统
-            children: [{
+            children: [ {
+                path: '',
+                redirect: 'ordermenu/'
+            },{
                 path: 'ordstatus',
                 component: ordstatus
             },
             {
-                path: 'ordermenu/:id',
+                path: 'ordermenu/',
                 component:ordermenu
             }]
 

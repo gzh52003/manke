@@ -14,6 +14,7 @@ const loginRouter = require('./login');
 const vcodeRouter = require('./vcode');
 const uploadRouter = require('./upload');
 const { formatData } = require('../utils/tools');
+const orderRouter = require('./order')
 
 // CORS跨域
 router.use(cors);
@@ -35,6 +36,9 @@ router.use(session({
     }
 }))
 
+
+//订单数据
+router.use('/order',orderRouter)
 
 // /api/user
 router.use('/user', userRouter);

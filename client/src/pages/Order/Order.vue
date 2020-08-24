@@ -1,10 +1,8 @@
 <template>
-    <div>
-       订单
-    </div>
+    <router-view/>
 </template>
 <script>
 export default {
-    
+
 }
 </script>
