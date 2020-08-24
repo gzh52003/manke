@@ -75,7 +75,7 @@ export default {
         cancelButtonText: "取消",
         type: "warning",
       }).then(async () => {
-        const { data } = await this.$request.delete("/user/" + id);
+        const { data } = await this.$request.delete("/manager/" + id);
         if (data.code === 1) {
           this.userlist = this.userlist.filter((item) => item._id !== id);
           this.$message({
@@ -87,31 +87,27 @@ export default {
     },
     goto(id) {
       this.$router.push({
-        name: "userEdit",
-        params: { id },
-        query: {
-          a: 10,
-          b: 20,
-        },
+        name: "managerEdit",
+        params: { id }
       });
     },
     async handleCurrentChange(val) {
-      const { data } = await this.$request.get(`/user?size=5&page=${val}`);
+      const { data } = await this.$request.get(`/manager?size=5&page=${val}`);
       this.userlist = data.data;
     },
     async search(){
       var input1 = this.input1;
       var input = new RegExp(input1);
-      var res = await this.$request.get("/user");
+      var res = await this.$request.get("/manager");
       var res1 = res.data.data;
       var res2 = res1.filter(item=>input.test(item.username));
       this.userlist = res2;
     }
   },
   async created() {
-    const { data } = await this.$request.get("/user?size=5&page=1");
+    const { data } = await this.$request.get("/manager?size=5&page=1");
     this.userlist = data.data;
-    var l = await this.$request.get("/user");
+    var l = await this.$request.get("/manager");
     var lis = l.data.data.length;
     this.lis = lis;
   },

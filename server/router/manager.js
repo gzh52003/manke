@@ -8,7 +8,7 @@ router.get('/',async (req,res)=>{
     const {page,size} = req.query;
     const limit = size*1;
     const skip = (page-1)*size;
-    const result = await mongo.find('user',{},{limit,skip,field:{password:false}})
+    const result = await mongo.find('manager',{},{limit,skip,field:{password:false}})
     res.send(formatData({data:result}));
 })
 
@@ -16,7 +16,7 @@ router.delete('/:id',async (req,res)=>{
     const {id} = req.params;
 
     try{
-        await mongo.remove('user',{_id:id});
+        await mongo.remove('manager',{_id:id});
         res.send(formatData())
     }catch(err){
         res.send(formatData({code:0}))
@@ -27,9 +27,8 @@ router.delete('/:id',async (req,res)=>{
 
 // 获取单个用户信息、
 router.get('/:id',async(req,res)=>{
-    const {id} = req.params;console.log('id=',id)
-
-    const result = await mongo.find('user',{_id:id},{
+    const {id} = req.params;
+    const result = await mongo.find('manager',{_id:id},{
         // 过滤字段：password不返回前端
         field:{password:false}
     });
@@ -48,7 +47,7 @@ router.put('/:id',async (req,res)=>{
     }
 
     try{
-        await mongo.update('user',{_id:id},{$set:newData});
+        await mongo.update('manager',{_id:id},{$set:newData});
         res.send(formatData({data:{_id:id,...newData}}))
     }catch(err){
         // console.log('err=',err);
