@@ -87,7 +87,6 @@ export default {
     },
   },
   async created() {
-    const { a, b } = this.$route.query;
     const { id } = this.$route.params;
     const { data } = await this.$request.get("/user/" + id);
     this.userid = id;

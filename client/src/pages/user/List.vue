@@ -1,10 +1,7 @@
 <template>
   <div>
-    <div style="margin-top: 15px;">
-      <el-input placeholder="请输入内容" v-model="input1" class="input-with-select">
-        <el-select v-model="select" slot="prepend" placeholder="请选择">
-          <el-option label="用户名" value="1"></el-option>
-        </el-select>
+    <div style="margin-top: 15px; width: 400px">
+      <el-input placeholder="请输入用户名" v-model="input1" class="input-with-select">
         <el-button slot="append" icon="el-icon-search" @click="search()"></el-button>
       </el-input>
     </div>
@@ -13,7 +10,6 @@
       :data="userlist"
       tooltip-effect="dark"
       style="width: 100%"
-      @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="100"></el-table-column>
       <el-table-column type="index" label="#" width="60"></el-table-column>
@@ -47,9 +43,7 @@
     </el-table>
     <div class="block">
       <el-pagination
-        @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="currentPage3"
         :page-size="5"
         layout="prev, pager, next, jumper"
         :total="lis"
@@ -63,9 +57,8 @@ export default {
     return {
       userlist: [],
       currentId: "",
-      lis: "",
+      lis: 1,
       input1: '',
-      select: '',
     };
   },
   methods: {
@@ -106,6 +99,7 @@ export default {
       var res1 = res.data.data;
       var res2 = res1.filter(item=>input.test(item.username));
       this.userlist = res2;
+      
     }
   },
   async created() {

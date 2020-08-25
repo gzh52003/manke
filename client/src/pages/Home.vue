@@ -7,7 +7,7 @@
         </el-col>
         <el-col :span="12" style="text-align:right">
           <el-button type="text">欢迎登录,{{name}}</el-button>
-          <el-link href="/login" type="warning" :underline="false">退出</el-link>
+          <el-link href="/login" type="warning" :underline="false" style="padding-left: 10px">退出</el-link>
         </el-col>
       </el-row>
     </el-header>
@@ -45,12 +45,6 @@
         </el-menu>
       </el-aside>
       <el-main>
-        <el-breadcrumb separator-class="el-icon-arrow-right">
-          <el-breadcrumb-item :to="{ path: '/' }">首页</el-breadcrumb-item>
-          <el-breadcrumb-item>活动管理</el-breadcrumb-item>
-          <el-breadcrumb-item>活动列表</el-breadcrumb-item>
-          <el-breadcrumb-item>活动详情</el-breadcrumb-item>
-        </el-breadcrumb>
         <div style="padding:15px 0;">
           <router-view />
         </div>
@@ -92,6 +86,11 @@ export default {
           path: "/order",
           icon: "el-icon-s-order",
         },
+        {
+          text: "个人中心",
+          path: "/mine",
+          icon: "el-icon-edit",
+        },
       ],
       currentIndex: 0,
       name: "",
@@ -112,7 +111,7 @@ export default {
   },
   created() {
     var data = JSON.parse(localStorage.getItem("currentUser"));
-    var name = data.data.username;
+    var name = data.data[0].username;
     this.name = name;
   },
   components: {},

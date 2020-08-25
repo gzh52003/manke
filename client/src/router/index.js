@@ -11,7 +11,7 @@ import UserList from '../pages/user/List.vue'
 import ManagerList from '../pages/user/Manager.vue'
 import UserEdit from '../pages/user/Edit.vue'
 import ManagerEdit from '../pages/user/MEdit.vue'
-
+import Mine from '../pages/Mine.vue'
 import Order from '../pages/Order.vue'
 import Goods from '../pages/Goods.vue'
 import Login from '../pages/Login.vue'
@@ -36,11 +36,7 @@ const router = new VueRouter({
                     path: '/user',
                     component: User,
                     children: [
-                        // 进入用户管理页面直接跳到用户列表
                         {
-                            path: '',
-                            redirect: 'list'
-                        }, {
                             path: 'managerList',
                             component: ManagerList
                         }, {
@@ -66,11 +62,13 @@ const router = new VueRouter({
                     component: Goods
                 },
                 {
+                    path: '/mine',
+                    component: Mine
+                },
+                {
                     path: '/404',
                     component: NotFound
                 },
-
-                // 404页面效果
                 {
                     path: '*',
                     redirect: '/404'

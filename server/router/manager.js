@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 //const query = require('../utils/mysql');
 const mongo = require('../utils/mongo');
-const {formatData,md5} = require('../utils/tools')
+const {formatData} = require('../utils/tools')
 
 router.get('/',async (req,res)=>{
     const {page,size} = req.query;
@@ -37,12 +37,12 @@ router.get('/:id',async(req,res)=>{
 
 router.put('/:id',async (req,res)=>{
     const {id} = req.params;
-    let {password,age,gender} = req.body;
+    let {password,age,gender,username} = req.body;
 
 
-    let newData = {age,gender}
+    let newData = {age,gender,username}
     if(password){
-        password = md5(password);
+        //password = md5(password);
         newData.password = password
     }
 
