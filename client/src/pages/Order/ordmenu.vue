@@ -10,8 +10,8 @@
     <el-card>
       <el-row > 
         <el-col :span="8">
-          <el-input placeholder="请输入内容"  v-model="search" >
-            <el-button slot="append" icon="el-icon-search"  @click="searchBtn"></el-button>
+          <el-input placeholder="请输入内容"  v-model="search" @change="searchBtn"   >
+            <el-button slot="append" icon="el-icon-search"  ></el-button>
           </el-input>
           
         </el-col>
@@ -32,7 +32,7 @@
         <el-table-column label="下单时间" prop="date" show-overflow-tooltip></el-table-column>
         <el-table-column label="联系电话" prop="phone" show-overflow-tooltip></el-table-column>
         <el-table-column label="操作">
-          <template v-slot:default="scope">
+          <template slot-scope="scope">
              
             <el-button  type="primary" size="mini" icon="el-icon-edit" @click="showEditDialog(scope.row._id)"></el-button>
             <el-button
@@ -69,6 +69,7 @@
       <el-form
         :model="addressForm"
         :rules="addressFormRules"
+        status-icon
         ref="addressFormRef"
         label-width="100px"
       >
@@ -85,7 +86,7 @@
          </el-form>
        <span slot="footer" class="dialog-footer">
         <el-button @click="addressDialogVisible = false">取 消</el-button>
-        <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
+        <el-button type="primary" @click="dialogVisible">确 定</el-button>
         </span>
     </el-dialog>
      <!-- <el-dialog title="查看物流进度" :visible.sync="progressDialogVisible" width="50%">
@@ -113,9 +114,12 @@ export default {
         page: 1,
         size: 10
       },
-       search:'',
-       searchdata:'',
+      currenID : 0,
+       cadd:'',
+      search:'',
+      searchdata:'',
       total: 0,
+      cityData,
       // 订单列表
       orderList: [],
       // 修改地址对话框
@@ -132,7 +136,7 @@ export default {
           { required: true, message: '请输入详细地址', trigger: 'blur' }
         ]
       },
-      cityData,
+   
       // 物流进度对话框
       // progressDialogVisible: false,
       // 物流进度
@@ -141,27 +145,27 @@ export default {
   },
   created () {
     this.getOrderList()
-    
+    //  this.dialogVisible()
   },
   updated(){
-    this.searchBtn()
-  //  this.searchlist = this.orderList;
-  },
-  // mouted(){},
-  methods: {
-  async searchBtn(){
-    let search = this.search;
-    let searchlist = new RegExp(search)
-    const {data} = await this.$request.get('/order',{})
-      // console.log(data)
-      // let res =data.data
     
-        // if(search){
-     //  this.orderList = data.filter(value => value.phone.indexof(this.search) !== -1)
-     // }
+  
+     
+  },
+  mouted(){
+    
+  },
+  methods: {
+    
+    //查找订单
+    async searchBtn(){
+     let search = this.search;
+     let searchlist = new RegExp(search)
+     const {data} = await this.$request.get('/order',{})
+  
       this.orderList = this.orderList.filter(item=>searchlist.test(item.phone));
 
-  },
+    },
     async getOrderList () {
       const { data: res } = await this.$request.get('/order', {
         params: this.query
@@ -189,9 +193,49 @@ export default {
       this.query.page = newSize
       this.getOrderList()
     },
-    showEditDialog () {
-      this.addressDialogVisible = true
+    showEditDialog (id) {
+      this.addressDialogVisible = true;
+    
+      this.currenID = id;
     },
+     async dialogVisible(id){
+      
+       this.$refs["addressFormRef"].validate(async (valid) => {console.log(13,valid)
+        // valid为校验结果，全部校验通过是值为true,否则为false
+        if (valid) {
+          this.addressDialogVisible = false;
+            let orderdata = (this.addressForm.address1).join('');
+            let orderdatas = this.addressForm.address2;
+            let cadd = orderdata+orderdatas;
+            console.log(cadd);
+              const data = await this.$request.put("/order/"+ this.currenID,{
+                   cadd
+                 });
+             console.log(data)
+          if(data.status === 200){
+              this.$message({
+                type: "success",
+                message: "更新成功",
+            });
+          }
+        } else {
+          console.log("error");
+          return false;
+        }
+      });
+       
+       
+      //  let orderdata = (this.addressForm.address1).join('');
+      //  let orderdatas = this.addressForm.address2;
+      //  let cadd = orderdata+orderdatas;
+      //  console.log(cadd)
+      //  const data = await this.$request.put("/order/"+ this.currenID,{
+      //         cadd
+      //     });
+      //     console.log(data)
+      //     this.addressDialogVisible = false;
+     },
+
     addressDialogClosed () {
       this.$refs.addressFormRef.resetFields()
     },
@@ -215,8 +259,11 @@ export default {
         }
       });
     },
+    //更新订单数据
+    
+    }
   }
-}
+
 
 
 </script>

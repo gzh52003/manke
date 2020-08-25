@@ -80,7 +80,7 @@ async function remove(colName,query){ // query{_id:'5c128cdbd1233ce12c878a32'}
 }
 
 // 改
-async function update(colName,query,newData){ // newData{$set:{price:200,qty:2},$inc:{view:1}}
+async function update(colName,query, newData){ // newData{$set:{price:200,qty:2},$inc:{view:1}}
     const {db,client} = await connect();
 
     const collection = db.collection(colName);

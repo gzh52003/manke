@@ -36,6 +36,8 @@ router.use(session({
     }
 }))
 
+//查询到指定数据
+// router.use('/order'+id,orderRouter)
 
 //订单数据
 router.use('/order',orderRouter)
@@ -58,8 +60,7 @@ router.use('/upload', uploadRouter);
 // 校验token
 router.get('/jwtverify',(req,res)=>{
     const {authorization} = req.query;
-    console.log('test',authorization)
-
+   
     // verify方法校验成功：得到一个对象
     // verify方法校验不通过：直接抛出错误
     // try{
