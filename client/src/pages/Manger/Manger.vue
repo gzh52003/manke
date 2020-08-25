@@ -1,22 +1,33 @@
 <template>
   <div>
     <div style="margin-top: 15px;">
-      <el-input placeholder="请输入内容" v-model="input1" class="input-with-select">
+      <el-input placeholder="请输入内容" v-model="input1" class="input-with-select" style="width:500px">
         <el-select v-model="select" slot="prepend" placeholder="请选择">
           <el-option label="用户名" value="1"></el-option>
         </el-select>
         <el-button slot="append" icon="el-icon-search" @click="search()"></el-button>
       </el-input>
+      按年龄区间查找
+      <el-select  v-model="select1" style="width:120px" slot="prepend" placeholder="请选择" >
+              <el-option label="20岁~28岁" value="01" @click.native="searchage(select1)"></el-option>
+              <el-option label="29岁~37岁" value="02" @click.native="searchage(select1)"></el-option>
+              <el-option label="38岁~46岁" value="03" @click.native="searchage(select1)"></el-option>  
+              <el-option label="47岁~55岁" value="04" @click.native="searchage(select1)"></el-option>
+        </el-select>
+      <el-input placeholder="请输入最低年龄" v-model="select1min" ref="min" class="input-with-select" style="width:200px;margin-left:5px">
+      </el-input>
+       <el-input placeholder="请输入最高年龄" v-model="select1max" ref="max" class="input-with-select" style="width:200px">
+      </el-input>
+       <el-button slot="append" icon="el-icon-search" @click="searchage()"></el-button>
     </div>
     <el-table
       ref="multipleTable"
       :data="userlist"
       tooltip-effect="dark"
       style="width: 100%"
-      @selection-change="handleSelectionChange"
     >
       <el-table-column type="selection" width="100"></el-table-column>
-      <el-table-column type="index" label="#" width="60"></el-table-column>
+      <el-table-column prop="id" label="管理员ID" width="120px"></el-table-column>
       <el-table-column label="用户头像" width="120">
         <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
       </el-table-column>
@@ -47,9 +58,7 @@
     </el-table>
     <div class="block">
       <el-pagination
-        @size-change="handleSizeChange"
         @current-change="handleCurrentChange"
-        :current-page.sync="currentPage3"
         :page-size="5"
         layout="prev, pager, next, jumper"
         :total="lis"
@@ -63,9 +72,12 @@ export default {
     return {
       userlist: [],
       currentId: "",
-      lis: "",
+      lis: 1,
       input1: '',
       select: '',
+      select1:'',
+      select1min:'',
+      select1max:''
     };
   },
   methods: {
@@ -96,12 +108,39 @@ export default {
       this.userlist = data.data;
     },
     async search(){
+      console.log(123)
       var input1 = this.input1;
       var input = new RegExp(input1);
       var res = await this.$request.get("/manager");
       var res1 = res.data.data;
       var res2 = res1.filter(item=>input.test(item.username));
       this.userlist = res2;
+    },
+    async searchage(num){
+      console.log(num)
+      
+      switch(num){
+        case "01":
+              this.select1min=20
+              this.select1max=28
+              break
+        case "02":
+              this.select1min=29
+              this.select1max=37
+              break
+        case "03":
+              this.select1min=38
+              this.select1max=46
+              break
+        case "04":
+              this.select1min=47
+              this.select1max=55
+              break
+                console.log(6666666)
+      }
+      const {data} = await this.$request.get(`/manager/age?miage=${this.select1min}&maage=${this.select1max}`);
+      this.userlist=data.data
+      console.log(data)
     }
   },
   async created() {

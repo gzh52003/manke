@@ -6,16 +6,18 @@ import VueRouter from 'vue-router'
 
 import Home from '../pages/Home.vue'
 
+import Manger from '../pages/Manger'
 import User from '../pages/user/Default.vue'
 import UserList from '../pages/user/List.vue'
-import ManagerList from '../pages/user/Manager.vue'
+import ManagerList from '../pages/Manger/Manger.vue'
 import UserEdit from '../pages/user/Edit.vue'
-import ManagerEdit from '../pages/user/MEdit.vue'
+import ManagerEdit from '../pages/Manger/MEdit.vue'
 
 import Order from '../pages/Order.vue'
 import Goods from '../pages/Goods.vue'
 import Login from '../pages/Login.vue'
 import NotFound from '../pages/NotFound.vue'
+
 
 
 // 2. 使用VueRouter
@@ -33,6 +35,21 @@ const router = new VueRouter({
             component: Home,
             children: [
                 {
+                    path:'/manger',
+                    component:Manger,
+                    children:[
+                        {
+                            path: 'manger',
+                            component: ManagerList
+                        }, 
+                        {
+                            name: 'managerEdit',
+                            path: 'medit/:id',
+                            component: ManagerEdit
+                        }
+                    ]
+                },
+                {
                     path: '/user',
                     component: User,
                     children: [
@@ -40,20 +57,13 @@ const router = new VueRouter({
                         {
                             path: '',
                             redirect: 'list'
-                        }, {
-                            path: 'managerList',
-                            component: ManagerList
-                        }, {
-                            path: 'userList',
+                        },{
+                            path: 'List',
                             component: UserList
                         }, {
                             name: 'userEdit',
                             path: 'edit/:id',
                             component: UserEdit
-                        },{
-                            name: 'managerEdit',
-                            path: 'medit/:id',
-                            component: ManagerEdit
                         }
                     ]
                 },

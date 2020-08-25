@@ -7,7 +7,7 @@ const { MongoClient,ObjectId } = require('mongodb');
 const url = 'mongodb://localhost:27017';
 
 // 数据库名称
-const dbName = 'manke';
+const dbName = 'gzh52003';
 
 
 async function connect(){
@@ -76,24 +76,19 @@ async function find(colName,query={},options={}){ // options={litmit:10,skip:0}
     if(query._id && typeof query._id === 'string'){
         query._id = ObjectId(query._id);
     }
-
     // 查询到数据集合
     const opt = {}
     if(options.field){
         opt.projection = options.field;
     }
     let result = collection.find(query,opt); // 50->10
-    
-
     // 判断是否要跳过记录
     if(options.skip){
         result = result.skip(options.skip)
     }
-
     if(options.limit){
         result = result.limit(options.limit);
     }
-
     // 排序
     console.log('sort',options.sort);
     if(options.sort){ //['price'],['price','1']
@@ -115,9 +110,22 @@ async function find(colName,query={},options={}){ // options={litmit:10,skip:0}
     return result
 }
 
+async function findByage(colName,miage,maage){
+    console.log(123456)
+    const {db,client} = await connect();
+    const collection = db.collection(colName);
+    console.log("最小",miage);
+    console.log("最大",maage);
+    console.log(maage);
+    let result=await collection.find({"age":{$gt:parseInt(`${miage}`),$lt:parseInt(`${maage}`)}}).toArray()
+    console.log(result);
+    
+    return result
+}
 module.exports = {
     insert,
     remove,
     update,
-    find
+    find,
+    findByage
 }

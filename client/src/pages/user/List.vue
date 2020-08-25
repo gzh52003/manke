@@ -13,10 +13,10 @@
       :data="userlist"
       tooltip-effect="dark"
       style="width: 100%"
-      @selection-change="handleSelectionChange"
+      
     >
       <el-table-column type="selection" width="100"></el-table-column>
-      <el-table-column type="index" label="#" width="60"></el-table-column>
+      <el-table-column prop="id" label="用户ID" width="120px"></el-table-column>
       <el-table-column label="用户头像" width="120">
         <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
       </el-table-column>
@@ -47,9 +47,9 @@
     </el-table>
     <div class="block">
       <el-pagination
-        @size-change="handleSizeChange"
+      
         @current-change="handleCurrentChange"
-        :current-page.sync="currentPage3"
+        
         :page-size="5"
         layout="prev, pager, next, jumper"
         :total="lis"
@@ -63,7 +63,7 @@ export default {
     return {
       userlist: [],
       currentId: "",
-      lis: "",
+      lis: 1,
       input1: '',
       select: '',
     };
@@ -110,7 +110,10 @@ export default {
   },
   async created() {
     const { data } = await this.$request.get("/user?size=5&page=1");
+    console.log(data)
     this.userlist = data.data;
+    console.log(999999999999)
+    console.log(this.userlist)
     var l = await this.$request.get("/user");
     var lis = l.data.data.length;
     this.lis = lis;

@@ -64,23 +64,18 @@ export default {
   name: "App",
   data() {
     return {
-      activeIndex: "/home",
+      activeIndex: "/manger/Manger",
       openMenu: [],
       menu: [
         {
+          text:"管理员",
+          path:"/manger/Manger",
+          icon:"el-icon-key"
+        },
+        {
           text: "用户管理",
-          path: "/user",
-          icon: "el-icon-user-solid",
-          submenu: [
-            {
-              text: "管理员列表",
-              path: "/managerList",
-            },
-            {
-              text: "用户列表",
-              path: "/userList",
-            },
-          ],
+          path: "/user/List",
+          icon: "el-icon-user-solid"
         },
         {
           text: "商品管理",

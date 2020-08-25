@@ -12,6 +12,12 @@ router.get('/',async (req,res)=>{
     res.send(formatData({data:result}));
 })
 
+router.get('/age',async(req,res)=>{
+    const {miage,maage} = req.query;
+    const result=await mongo.findByage('manager',miage,maage)
+    res.send(formatData({data:result}))
+})
+
 router.delete('/:id',async (req,res)=>{
     const {id} = req.params;
 
@@ -57,3 +63,7 @@ router.put('/:id',async (req,res)=>{
     
 })
 module.exports = router;
+
+
+
+
