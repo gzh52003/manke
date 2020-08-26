@@ -1,10 +1,7 @@
 <template>
   <div>
-    <div style="margin-top: 15px;">
-      <el-input placeholder="请输入内容" v-model="input1" class="input-with-select">
-        <el-select v-model="select" slot="prepend" placeholder="请选择">
-          <el-option label="用户名" value="1"></el-option>
-        </el-select>
+    <div style="margin-top: 15px; width: 400px">
+      <el-input placeholder="请输入用户名" v-model="input1" class="input-with-select">
         <el-button slot="append" icon="el-icon-search" @click="search()"></el-button>
       </el-input>
     </div>
@@ -47,9 +44,7 @@
     </el-table>
     <div class="block">
       <el-pagination
-      
         @current-change="handleCurrentChange"
-        
         :page-size="5"
         layout="prev, pager, next, jumper"
         :total="lis"
@@ -65,7 +60,6 @@ export default {
       currentId: "",
       lis: 1,
       input1: '',
-      select: '',
     };
   },
   methods: {
@@ -106,6 +100,7 @@ export default {
       var res1 = res.data.data;
       var res2 = res1.filter(item=>input.test(item.username));
       this.userlist = res2;
+      
     }
   },
   async created() {

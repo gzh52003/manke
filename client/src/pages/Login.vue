@@ -27,16 +27,16 @@ export default {
     async handleLodin() {
       if (this.formdata.username !== "" && this.formdata.password !== "") {
         const result = await this.$request.get(
-          `/manager?username=${this.formdata.username}&password=${this.formdata.password}`
+          `/login?username=${this.formdata.username}&password=${this.formdata.password}`
         )
         if (result.data.code === 1) {
           localStorage.setItem("currentUser", JSON.stringify(result.data));
-          this.$router.push({ path: "/home" });
           this.$message({
             showClose: true,
             message: "登录成功",
             type: "success",
-          });
+          }); 
+          this.$router.push({ path: "/home" });
         } else if (result.data.code === 0) {
           this.$message({
             message: "登录用户名或密码错误",

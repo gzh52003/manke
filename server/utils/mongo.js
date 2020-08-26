@@ -53,7 +53,7 @@ async function remove(colName,query){
 }
 
 // 改
-async function update(colName,query,newData){ // newData{$set:{price:200,qty:2},$inc:{view:1}}
+async function update(colName,query,newData){ 
     const {db,client} = await connect();
 
     const collection = db.collection(colName);
@@ -68,7 +68,7 @@ async function update(colName,query,newData){ // newData{$set:{price:200,qty:2},
 }
 
 // 查
-async function find(colName,query={},options={}){ // options={litmit:10,skip:0}
+async function find(colName,query={},options={}){ 
     const {client,db} = await connect();
     
     const collection = db.collection(colName);
@@ -90,7 +90,6 @@ async function find(colName,query={},options={}){ // options={litmit:10,skip:0}
         result = result.limit(options.limit);
     }
     // 排序
-    console.log('sort',options.sort);
     if(options.sort){ //['price'],['price','1']
         let key,val;
         key = options.sort[0];

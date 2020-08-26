@@ -53,7 +53,6 @@ const router = new VueRouter({
                     path: '/user',
                     component: User,
                     children: [
-                        // 进入用户管理页面直接跳到用户列表
                         {
                             path: '',
                             redirect: 'list'
@@ -76,11 +75,13 @@ const router = new VueRouter({
                     component: Goods
                 },
                 {
+                    path: '/mine',
+                    component: Mine
+                },
+                {
                     path: '/404',
                     component: NotFound
                 },
-
-                // 404页面效果
                 {
                     path: '*',
                     redirect: '/404'

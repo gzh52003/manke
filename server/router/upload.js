@@ -4,7 +4,7 @@ const multer = require('multer');
 const path = require('path');
 
 const mongo = require('../utils/mongo');
-const { formatData, md5 } = require('../utils/tools')
+const { formatData } = require('../utils/tools')
 
 
 // 配置上传参数
@@ -33,12 +33,11 @@ const uploadMiddleware = multer({ storage });
 // post /api/upload/avatar
 router.post('/avatar', uploadMiddleware.single('avatar'), (req, res) => {
     // 中间件会把图片信息格式化到req.file,req.files
-    console.log('file=', req.file, req.body);
     const { _id } = req.body;
 
     // 更新用户信息
     const avatarUrl = '/uploads/' + req.file.filename
-    mongo.update('user', { _id }, { $set: { avatarUrl } })
+    mongo.update('manager', { _id }, { $set: { avatarUrl } })
 
     res.send(formatData({ data: { _id, avatarUrl } }));
 })
