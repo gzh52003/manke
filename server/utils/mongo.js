@@ -7,14 +7,13 @@ const { MongoClient,ObjectId } = require('mongodb');
 const url = 'mongodb://localhost:27017';
 
 // 数据库名称
-const dbName = 'gzh52003';
+const dbName = 'manke';
 
 
 async function connect(){
 
     const client = await MongoClient.connect(url);
     const db = client.db(dbName);
-
     return {client,db}
 }
 
@@ -53,7 +52,7 @@ async function remove(colName,query){
 }
 
 // 改
-async function update(colName,query,newData){ 
+async function update(colName,query, newData){ // newData{$set:{price:200,qty:2},$inc:{view:1}}
     const {db,client} = await connect();
 
     const collection = db.collection(colName);

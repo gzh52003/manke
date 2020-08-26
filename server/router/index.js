@@ -15,6 +15,7 @@ const managerRouter = require('./manager');
 const vcodeRouter = require('./vcode');
 const uploadRouter = require('./upload');
 const { formatData } = require('../utils/tools');
+const orderRouter = require('./order')
 
 // CORS跨域
 router.use(cors);
@@ -36,6 +37,11 @@ router.use(session({
     }
 }))
 
+//查询到指定数据
+// router.use('/order'+id,orderRouter)
+
+//订单数据
+router.use('/order',orderRouter)
 
 // /api/user
 router.use('/user', userRouter);
@@ -57,6 +63,15 @@ router.use('/upload', uploadRouter);
 // 校验token
 router.get('/jwtverify',(req,res)=>{
     const {authorization} = req.query;
+   
+    // verify方法校验成功：得到一个对象
+    // verify方法校验不通过：直接抛出错误
+    // try{
+    //     var decoded = jwt.verify(authorization, 'laoxie');
+    //     res.send(formatData())
+    // }catch(err){
+    //     res.send(formatData({code:0}))
+    // }
 
     if(token.verify(authorization)){
         res.send(formatData())

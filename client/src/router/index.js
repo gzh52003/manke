@@ -4,7 +4,7 @@ import Vue from 'vue';
 import VueRouter from 'vue-router'
 
 
-import Home from '../pages/Home.vue'
+import Home from '@/pages/Home.vue'
 
 import Manger from '../pages/Manger'
 import User from '../pages/user/Default.vue'
