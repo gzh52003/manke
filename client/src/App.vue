@@ -3,7 +3,7 @@
     <el-header class="header">
       <el-row>
         <el-col :span="12" class="logo">
-          <i class="el-icon-connection"></i>金锋后台管理系统
+          <i class="el-icon-connection"></i>漫客商城后台管理系统
         </el-col>
         <el-col :span="12" style="text-align:right">
           <el-button type="text">注册</el-button>
@@ -26,7 +26,7 @@
           router
         >
           <template v-for="item in menu">
-            <el-menu-item :index="item.path" :key="item.path"  v-if="!item.submenu">
+            <el-menu-item :index="item.path" :key="item.path"  v-if="!item.submenu && !item.sublist" >
               <i :class="item.icon" style="color:#fff"></i>
               {{item.text}}
             </el-menu-item>
@@ -35,6 +35,10 @@
                 <i :class="item.icon" style="color:#fff"></i>{{item.text}}
               </template>
               <el-menu-item :key="sub.path" :index="item.path+sub.path" v-for="sub in item.submenu">{{sub.text}}</el-menu-item>
+              <!-- 商品管理 -->
+              <el-menu-item :key="submit.path" :index="item.path+submit.path" v-for="submit in item.sublist">
+                {{submit.text}}
+              </el-menu-item>
             </el-submenu>
           </template>
         </el-menu>
@@ -86,6 +90,20 @@ export default {
           text: "商品管理",
           path: "/goods",
           icon: "el-icon-grape",
+          sublist:[
+            {
+              text:"商品列表",
+              path:"/list"
+            },
+            {
+              text:"分类参数",
+              path:"/gparameter"
+            },
+            {
+              text:"商品分类",
+              path:"/gkind:id"
+            },
+          ]
         },
         {
           text: "订单管理",

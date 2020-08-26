@@ -1,7 +1,7 @@
-import Vue from './node_modules/vue';
+import Vue from 'vue';
 
 // 1. 引入Vue-Router
-import VueRouter from './node_modules/vue-router'
+import VueRouter from 'vue-router'
 
 
 import Home from '../pages/Home.vue'
@@ -12,11 +12,17 @@ import UserAdd from '../pages/user/Add.vue'
 import UserEdit from '../pages/user/Edit.vue'
 
 import Order from '../pages/Order.vue'
-import Goods from '../pages/Goods.vue'
 import Reg from '../pages/Reg.vue'
 import Login from '../pages/Login.vue'
 import NotFound from '../pages/NotFound.vue'
 
+// Goods的索引列表
+import Goods from '../pages/goods/Default.vue'
+import Goodslist from '../pages/goods/List.vue'
+import GoodsParameter from '../pages/goods/Parameter.vue'
+import GoodsSort from '../pages/goods/Sort.vue'
+import GoodsEdit from '../pages/goods/Edit.vue'
+import GoodsAdd from '../pages/goods/Add.vue'
 
 // 2. 使用VueRouter
 Vue.use(VueRouter)
@@ -59,7 +65,31 @@ const router = new VueRouter({
         },
         {
             path: '/goods',
-            component: Goods
+            component: Goods,
+            children: [
+                // 进入商品管理页面直接跳到商品列表
+                {
+                    path: '',
+                    redirect: 'list'
+                },
+                {
+                    path: 'list',
+                    component: Goodslist
+                }, {
+                    path: 'gparameter',
+                    component: GoodsParameter
+                }, {
+                    path: 'gkind:id',
+                    component: GoodsSort
+                },{
+                    name:'goodsEdit',
+                    path: 'edit/:id',
+                    component: GoodsEdit
+                },{
+                    path: '/goods/add',
+                    component: GoodsAdd
+                }
+            ]
         },
         {
             path: '/login',
@@ -73,7 +103,6 @@ const router = new VueRouter({
             path: '/404',
             component: NotFound
         },
-
         // 404页面效果
         {
             path: '*',
@@ -81,7 +110,6 @@ const router = new VueRouter({
         }
     ]
 })
-
 export default router;
 
 console.log('router=', router);

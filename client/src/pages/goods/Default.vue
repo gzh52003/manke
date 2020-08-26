@@ -1,6 +1,7 @@
 <template>
     <div>
-        Goods
+        商品管理
+        <router-view/>
     </div>
 </template>
 <script>

@@ -15,6 +15,7 @@ const vcodeRouter = require('./vcode');
 const uploadRouter = require('./upload');
 const { formatData } = require('../utils/tools');
 
+
 // CORS跨域
 router.use(cors);
 

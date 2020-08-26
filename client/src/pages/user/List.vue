@@ -5,8 +5,9 @@
       :data="userlist"
       tooltip-effect="dark"
       style="width: 100%"
-      @selection-change="handleSelectionChange"
+      
     >
+    <!-- @selection-change="handleSelectionChange" -->
       <el-table-column type="selection" width="55"></el-table-column>
       <el-table-column type="index" label="#" width="55"></el-table-column>
       <el-table-column label="用户名" prop="username"></el-table-column>
