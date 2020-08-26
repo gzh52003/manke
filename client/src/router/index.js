@@ -12,7 +12,7 @@ import UserList from '../pages/user/List.vue'
 import ManagerList from '../pages/Manger/Manger.vue'
 import UserEdit from '../pages/user/Edit.vue'
 import ManagerEdit from '../pages/Manger/MEdit.vue'
-
+import Mine from '../pages/Mine.vue'
 import Order from '../pages/Order.vue'
 import Goods from '../pages/Goods.vue'
 import Login from '../pages/Login.vue'
