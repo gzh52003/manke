@@ -207,7 +207,7 @@ export default {
             let orderdata = (this.addressForm.address1).join('');
             let orderdatas = this.addressForm.address2;
             let cadd = orderdata+orderdatas;
-            console.log(cadd);
+            // console.log(cadd);
               const data = await this.$request.put("/order/"+ this.currenID,{
                    cadd
                  });

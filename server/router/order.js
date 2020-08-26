@@ -54,9 +54,9 @@ router.put('/:id',async (req,res)=>{
     // console.log(newcadd);
    
     try{
-        await mongo.update('order',{_id:id},{$set:cadd});
-        // console.log(id);
-        res.send({data:{id,cadd}})
+      await mongo.update('order',{_id:id},{$set:cadd});
+        // console.log(data);
+        res.send({id,cadd})
     }catch(err){
         console.log('err=',err);
         res.send("fail")
