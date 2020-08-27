@@ -105,6 +105,7 @@ export default {
     },
     async handleCurrentChange(val) {
       const { data } = await this.$request.get(`/manager?size=5&page=${val}`);
+      console.log(val)
       this.userlist = data.data;
     },
     async search(){
@@ -140,11 +141,13 @@ export default {
       }
       const {data} = await this.$request.get(`/manager/age?miage=${this.select1min}&maage=${this.select1max}`);
       this.userlist=data.data
+      this.lis=this.userlist.length
+      console.log(this.lis.length)
       console.log(data)
     }
   },
   async created() {
-    const { data } = await this.$request.get("/manager?size=5&page=1");
+    const { data } = await this.$request.get("/manager?size=5");
     this.userlist = data.data;
     var l = await this.$request.get("/manager");
     var lis = l.data.data.length;

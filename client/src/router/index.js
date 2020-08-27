@@ -7,13 +7,18 @@ import VueRouter from 'vue-router'
 import Home from '@/pages/Home.vue'
 
 import Manger from '../pages/Manger'
+import ManagerList from '../pages/Manger/Manger.vue'
+import ManagerEdit from '../pages/Manger/MEdit.vue'
+
 import User from '../pages/user/Default.vue'
 import UserList from '../pages/user/List.vue'
-import ManagerList from '../pages/Manger/Manger.vue'
 import UserEdit from '../pages/user/Edit.vue'
-import ManagerEdit from '../pages/Manger/MEdit.vue'
+
 import Mine from '../pages/Mine.vue'
-import Order from '../pages/Order.vue'
+import Order from '../pages/Order/Order.vue'
+import ordermenu from '../pages/Order/ordmenu.vue'
+import ordstatus from '../pages/Order/ordstatus.vue'
+
 import Goods from '../pages/Goods.vue'
 import Login from '../pages/Login.vue'
 import NotFound from '../pages/NotFound.vue'
@@ -68,7 +73,18 @@ const router = new VueRouter({
                 },
                 {
                     path: '/order',
-                    component: Order
+                    component: Order,
+                    children: [ {
+                        path: '',
+                        redirect: 'ordermenu/'
+                    },{
+                        path: 'ordstatus',
+                        component: ordstatus
+                    },
+                    {
+                        path: 'ordermenu/',
+                        component:ordermenu
+                    }]
                 },
                 {
                     path: '/goods',

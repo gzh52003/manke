@@ -5,7 +5,9 @@ const mongo = require('../utils/mongo');
 const {formatData} = require('../utils/tools')
 
 router.get('/',async (req,res)=>{
-    const {page,size} = req.query;
+    const {page=1,size} = req.query;
+    console.log(page);
+    console.log(size);
     const limit = size*1;
     const skip = (page-1)*size;
     const result = await mongo.find('manager',{},{limit,skip,field:{password:false}})
@@ -14,6 +16,7 @@ router.get('/',async (req,res)=>{
 
 router.get('/age',async(req,res)=>{
     const {miage,maage} = req.query;
+    
     const result=await mongo.findByage('manager',miage,maage)
     res.send(formatData({data:result}))
 })
