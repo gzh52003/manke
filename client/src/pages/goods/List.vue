@@ -8,7 +8,7 @@
         </el-breadcrumb> -->
         <el-input placeholder="请输入内容" icon="search" clearable v-model="input"
          style="width:38%">    
-         <el-button slot="append" icon="el-icon-search" @click="getGoodsList"></el-button>
+         <el-button slot="append" icon="el-icon-search" @click="getGoodsList" style="color:#fff;background:#409EFF"></el-button>
         </el-input>
         &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
         <el-button type="primary" @click="goAddPage">添加商品</el-button>

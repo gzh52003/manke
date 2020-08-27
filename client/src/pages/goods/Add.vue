@@ -95,12 +95,9 @@
             alert('请重新添加');
           }
         })
+          this.$router.push({name:'Goodslist'})
       }
-    },
-    async created() {
-      const { data } = await this.$request.post("/goods/");
-      Object.assign(this.ruleForm, date);
-    },
+    }
   }
 </script>
 

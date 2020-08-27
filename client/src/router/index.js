@@ -19,7 +19,6 @@ import Order from '../pages/Order/Order.vue'
 import ordermenu from '../pages/Order/ordmenu.vue'
 import ordstatus from '../pages/Order/ordstatus.vue'
 
-import Goods from '../pages/Goods.vue'
 import Login from '../pages/Login.vue'
 import NotFound from '../pages/NotFound.vue'
 
@@ -39,7 +38,7 @@ Vue.use(VueRouter)
 const router = new VueRouter({
     routes: [
         {
-            path: '/', 
+            path: '/',
             redirect: '/login'
         },
         {
@@ -47,13 +46,13 @@ const router = new VueRouter({
             component: Home,
             children: [
                 {
-                    path:'/manger',
-                    component:Manger,
-                    children:[
+                    path: '/manger',
+                    component: Manger,
+                    children: [
                         {
                             path: 'manger',
                             component: ManagerList
-                        }, 
+                        },
                         {
                             name: 'managerEdit',
                             path: 'medit/:id',
@@ -68,7 +67,7 @@ const router = new VueRouter({
                         {
                             path: '',
                             redirect: 'list'
-                        },{
+                        }, {
                             path: 'List',
                             component: UserList
                         }, {
@@ -81,21 +80,46 @@ const router = new VueRouter({
                 {
                     path: '/order',
                     component: Order,
-                    children: [ {
+                    children: [{
                         path: '',
                         redirect: 'ordermenu/'
-                    },{
+                    }, {
                         path: 'ordstatus',
                         component: ordstatus
                     },
                     {
                         path: 'ordermenu/',
-                        component:ordermenu
+                        component: ordermenu
                     }]
                 },
                 {
                     path: '/goods',
-                    component: Goods
+                    component: Goods,
+                    children: [
+                        // 进入商品管理页面直接跳到商品列表
+                        {
+                            path: '',
+                            redirect: 'list'
+                        },
+                        {
+                            name: 'Goodslist',
+                            path: 'list',
+                            component: Goodslist
+                        }, {
+                            path: 'gparameter',
+                            component: GoodsParameter
+                        }, {
+                            path: 'gkind:id',
+                            component: GoodsSort
+                        }, {
+                            path: 'edit/:id',
+                            component: GoodsEdit
+                        }, {
+                            name: 'goodsAdd',
+                            path: '/goods/add',
+                            component: GoodsAdd
+                        }
+                    ]
                 },
                 {
                     path: '/mine',

@@ -2,12 +2,12 @@
  * MongoDB操作封装
  */
 const { MongoClient,ObjectId } = require('mongodb');
-console.log(MongoClient,789);
+// console.log(MongoClient,789);
 // mongodb数据库地址
 const url = 'mongodb://localhost:27017';
 
 // 数据库名称
-const dbName = 'manke';
+const dbName = 'gzh52003';
 
 
 async function connect(){
