@@ -23,6 +23,13 @@ import Goods from '../pages/Goods.vue'
 import Login from '../pages/Login.vue'
 import NotFound from '../pages/NotFound.vue'
 
+// Goods的索引列表
+import Goods from '../pages/goods/Default.vue'
+import Goodslist from '../pages/goods/List.vue'
+import GoodsParameter from '../pages/goods/Parameter.vue'
+import GoodsSort from '../pages/goods/Sort.vue'
+import GoodsEdit from '../pages/goods/Edit.vue'
+import GoodsAdd from '../pages/goods/Add.vue'
 
 
 // 2. 使用VueRouter

@@ -7,7 +7,7 @@ const mongo = require('../utils/mongo');
 
 // get /api/goods 查询所有商品
 router.get('/', async (req, res) => {
-    let {page=1,size=10,sort="add_time"} = req.query;
+    let {page,size,sort="add_time"} = req.query;
     const skip = (page-1)*size; //0
     const limit = size*1; //10
 
@@ -30,8 +30,19 @@ router.delete('/:id',async (req,res)=>{
     }catch(err){
         res.send('fail');
     }
-
 })
 
+router.post('/',async (req,res)=>{
+    let {name,price,weight,counts,time} = req.body;
+    console.log(req.body)
+    let result;
+    try{
+        result = await mongo.insert('goods',{name,price,weight,counts,time});
+        res.send(formatData());
+    }catch(err){
+        // res.send(forMatData({code:0}))
+    }
+    res.send(result);
+})
 
 module.exports = router;
