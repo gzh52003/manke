@@ -103,10 +103,14 @@ export default {
         params: { id }
       });
     },
+    async handleSizeChange(val) {
+      this.size = val
+    },
     async handleCurrentChange(val) {
-      const { data } = await this.$request.get(`/manager?size=5&page=${val}`);
-      console.log(val)
-      this.userlist = data.data;
+      // const { data } = await this.$request.get(`/manager?size=5&page=${val}`);
+      // console.log(val)
+      // this.userlist = data.data;
+      this.page=val
     },
     async search(){
       console.log(123)
@@ -146,8 +150,8 @@ export default {
       console.log(data)
     }
   },
-  async created() {
-    const { data } = await this.$request.get("/manager?size=5");
+  async created(handleCurrentChange) {
+    const { data } = await this.$request.get('/manager?size=5');
     this.userlist = data.data;
     var l = await this.$request.get("/manager");
     var lis = l.data.data.length;
