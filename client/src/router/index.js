@@ -112,6 +112,7 @@ const router = new VueRouter({
                             path: 'gkind:id',
                             component: GoodsSort
                         }, {
+                            name:'goodsEdit',
                             path: 'edit/:id',
                             component: GoodsEdit
                         }, {

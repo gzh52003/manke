@@ -1,18 +1,15 @@
 <template>
   <el-container style="margin: 50px">
-    <el-upload
-      class="avatar-uploader"
-      action="https://jsonplaceholder.typicode.com/posts/"
-      :show-file-list="false"
-      :on-success="handleAvatarSuccess"
-      :before-upload="beforeAvatarUpload"
-    >
-      <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-      <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-    </el-upload>
+    <div>
+      <img
+        :src="avatar?avatar:'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1155772843,599594265&fm=26&gp=0.jpg'"
+        style="width: 300px;height:260px;display:block;margin-bottom:20px"
+      />
+      <input type="file" class="form-control-file" @change="avatarChange" />
+    </div>
     <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px">
       <el-form-item label="用户名" prop="username">
-        <el-input type="text" v-model="ruleForm.username"></el-input>
+        <el-input type="text" v-model="ruleForm.username" disabled></el-input>
       </el-form-item>
       <el-form-item label="密码" prop="password">
         <el-input type="password" v-model="ruleForm.password" autocomplete="off"></el-input>
@@ -54,6 +51,7 @@ export default {
         age: "",
       },
       imageUrl: "",
+      avatar:"",
       _id: "",
       rules: {
         age: [
@@ -91,29 +89,35 @@ export default {
           if (data.code === 1) {
             this.$message({
               type: "success",
-              message: "修改成功",
+              message: "修改成功",              
             });
-            this.$router.push({ path: "/login" });
+            
+            this.$router.push("/login")
           }
         } else {
           return false;
         }
       });
     },
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
-    },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
+    async avatarChange(e) {
+      let currentUser = localStorage.getItem("currentUser");
+      currentUser = JSON.parse(currentUser);
+      const id = currentUser.data[0]._id;
+      const data = new FormData();
+      data.set("_id", id);
+      data.set("avatar", e.target.files[0]);
+     
+      const result = await this.$request.post("/upload/avatar", data, {
+        contentType: false,
+      }); 
 
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
+      this.avatar = result.data.data.avatarUrl;
+      // 更新本地存储数据
+      if (id === currentUser._id) {
+        currentUser.avatarUrl = result.data.avatarUrl;
+        localStorage.setItem("currentUser", JSON.stringify(currentUser));
       }
-      if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
-      }
-      return isJPG && isLt2M;
+
     },
   },
   async created() {
@@ -122,6 +126,7 @@ export default {
     this.ruleForm.username = currentUser.data[0].username;
     this.ruleForm.age = currentUser.data[0].age;
     this.ruleForm.gender = currentUser.data[0].gender;
+    this.avatar = currentUser.data[0].avatarUrl;
   },
 };
 </script>
