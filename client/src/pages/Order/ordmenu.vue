@@ -213,7 +213,7 @@ export default {
                  });
              console.log(data)
           if(data.status === 200){
-            
+            this.getOrderList()
               this.$message({
                 type: "success",
                 message: "更新成功",
