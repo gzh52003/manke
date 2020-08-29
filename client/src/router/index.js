@@ -14,7 +14,7 @@ import User from '../pages/user/Default.vue'
 import UserList from '../pages/user/List.vue'
 import UserEdit from '../pages/user/Edit.vue'
 
-import Mine from '../pages/Mine.vue'
+import Mine from '../pages/Mine/Mine.vue'
 import Order from '../pages/Order/Order.vue'
 import ordermenu from '../pages/Order/ordmenu.vue'
 import ordstatus from '../pages/Order/ordstatus.vue'

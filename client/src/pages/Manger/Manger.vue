@@ -73,6 +73,7 @@ export default {
       userlist: [],
       currentId: "",
       lis: 1,
+      
       input1: '',
       select: '',
       select1:'',
@@ -103,13 +104,11 @@ export default {
         params: { id }
       });
     },
-    async handleSizeChange(val) {
-      this.size = val
-    },
+
     async handleCurrentChange(val) {
-      // const { data } = await this.$request.get(`/manager?size=5&page=${val}`);
-      // console.log(val)
-      // this.userlist = data.data;
+      const { data } = await this.$request.get(`/manager?size=5&page=${val}`);
+      console.log(val)
+      this.userlist = data.data;
       this.page=val
     },
     async search(){
@@ -150,7 +149,7 @@ export default {
       console.log(data)
     }
   },
-  async created(handleCurrentChange) {
+  async created() {
     const { data } = await this.$request.get('/manager?size=5');
     this.userlist = data.data;
     var l = await this.$request.get("/manager");
