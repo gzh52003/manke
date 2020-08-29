@@ -29,7 +29,9 @@
       <el-table-column type="selection" width="100"></el-table-column>
       <el-table-column prop="id" label="管理员ID" width="120px"></el-table-column>
       <el-table-column label="用户头像" width="120">
-        <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+        <template slot-scope="scope">
+          <el-avatar :src="scope.row.avatarUrl?scope.row.avatarUrl:'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1155772843,599594265&fm=26&gp=0.jpg'"></el-avatar>
+        </template>
       </el-table-column>
       <el-table-column label="用户名" prop="username"></el-table-column>
       <el-table-column prop="age" label="年龄" width="120"></el-table-column>
@@ -44,7 +46,6 @@
             circle
             @click="goto(scope.row._id)"
           ></el-button>
-
           <el-button
             size="small"
             plain
@@ -77,7 +78,8 @@ export default {
       select: '',
       select1:'',
       select1min:'',
-      select1max:''
+      select1max:'',
+      avatar: ""
     };
   },
   methods: {
@@ -107,9 +109,6 @@ export default {
       this.size = val
     },
     async handleCurrentChange(val) {
-      // const { data } = await this.$request.get(`/manager?size=5&page=${val}`);
-      // console.log(val)
-      // this.userlist = data.data;
       this.page=val
     },
     async search(){
@@ -146,17 +145,12 @@ export default {
       const {data} = await this.$request.get(`/manager/age?miage=${this.select1min}&maage=${this.select1max}`);
       this.userlist=data.data
       this.lis=this.userlist.length
-      console.log(this.lis.length)
-      console.log(data)
     }
   },
-  async created(handleCurrentChange) {
+  async created() {
     const { data } = await this.$request.get('/manager?size=5');
     this.userlist = data.data;
-    var l = await this.$request.get("/manager");
-    var lis = l.data.data.length;
-    this.lis = lis;
-  },
+  }
 };
 </script>
 <style lang="scss">
