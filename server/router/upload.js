@@ -9,12 +9,8 @@ const { formatData } = require('../utils/tools')
 
 // 配置上传参数
 let storage = multer.diskStorage({
-    // destination: function (req, file, cb) {
-    //   cb(null, './uploads/');
-    // },
-
     // 上传文件保存目录，无则自动创建
-    destination: path.join(__dirname, '../public/uploads/'),
+    destination: path.join(__dirname, '../../client/public/uploads/'),
 
     // 格式化文件名：字段名+时间戳+扩展名
     // avatar-1597202347355.jpg
@@ -43,8 +39,8 @@ router.post('/avatar', uploadMiddleware.single('avatar'), (req, res) => {
 })
 
 // 一次性最多传5张图片
-router.post('/goods', uploadMiddleware.array('goods', 5), (req, res) => {
+/* router.post('/goods', uploadMiddleware.array('goods', 5), (req, res) => {
 
-})
+}) */
 
 module.exports = router;
