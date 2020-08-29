@@ -213,6 +213,7 @@ export default {
                  });
             
           if(data.status === 200){
+             this.getOrderList()
               this.$message({
                 type: "success",
                 message: "更新成功",
@@ -223,7 +224,7 @@ export default {
           return false;
         }
       });
-     this.getOrderList()
+    
        
       //  let orderdata = (this.addressForm.address1).join('');
       //  let orderdatas = this.addressForm.address2;
