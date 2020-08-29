@@ -200,18 +200,18 @@ export default {
     },
      async dialogVisible(id){
       
-       this.$refs["addressFormRef"].validate(async (valid) => {console.log(13,valid)
+       this.$refs["addressFormRef"].validate(async (valid) => {
         // valid为校验结果，全部校验通过是值为true,否则为false
         if (valid) {
           this.addressDialogVisible = false;
             let orderdata = (this.addressForm.address1).join('');
             let orderdatas = this.addressForm.address2;
             let cadd = orderdata+orderdatas;
-            // console.log(cadd);
+      
               const data = await this.$request.put("/order/"+ this.currenID,{
                    cadd
                  });
-             console.log(data)
+            
           if(data.status === 200){
               this.$message({
                 type: "success",
@@ -223,7 +223,7 @@ export default {
           return false;
         }
       });
-       
+     this.getOrderList()
        
       //  let orderdata = (this.addressForm.address1).join('');
       //  let orderdatas = this.addressForm.address2;

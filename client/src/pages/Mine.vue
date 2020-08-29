@@ -2,7 +2,7 @@
   <el-container style="margin: 50px">
     <div>
       <img
-        :src="avatar?avatar:'http://img.netbian.com/file/2019/0917/9236d7fc8fe490e9b23acd25cb992200.jpg'"
+        :src="avatar?avatar:'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1155772843,599594265&fm=26&gp=0.jpg'"
         style="width: 300px;height:260px;display:block;margin-bottom:20px"
       />
       <input type="file" class="form-control-file" @change="avatarChange" />

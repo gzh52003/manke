@@ -30,7 +30,7 @@
       <el-table-column prop="id" label="管理员ID" width="120px"></el-table-column>
       <el-table-column label="用户头像" width="120">
         <template slot-scope="scope">
-          <el-avatar :src="scope.row.avatarUrl?scope.row.avatarUrl:'http://img.netbian.com/file/2019/0917/9236d7fc8fe490e9b23acd25cb992200.jpg'"></el-avatar>
+          <el-avatar :src="scope.row.avatarUrl?scope.row.avatarUrl:'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1155772843,599594265&fm=26&gp=0.jpg'"></el-avatar>
         </template>
       </el-table-column>
       <el-table-column label="用户名" prop="username"></el-table-column>
