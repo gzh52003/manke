@@ -1,22 +1,79 @@
 <template>
-    <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-width="100px" class="demo-ruleForm">
-        <el-form-item label="密码" prop="pass">
-            <el-input type="password" v-model="ruleForm2.pass" auto-complete="off"></el-input>
-        </el-form-item>
-        <el-form-item label="确认密码" prop="checkPass">
-            <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off"></el-input>
-        </el-form-item> 
-        <el-form-item label="年龄" prop="age">
-            <el-input v-model.number="ruleForm2.age"></el-input>
-        </el-form-item>
-        <el-form-item>
-            <el-button type="primary" @click="submitForm('ruleForm2')">提交</el-button>
-            <el-button @click="resetForm('ruleForm2')">重置</el-button>
-        </el-form-item>
-    </el-form>
+    <div>
+        <h1>商品编辑</h1>
+        <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="100px" class="demo-ruleForm">
+            <el-form-item label="商品名称" prop="name">
+                <el-input type="" v-model="ruleForm.name" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="商品价格" prop="price">
+                <el-input type="" v-model.number="ruleForm.price" auto-complete="off"></el-input>
+            </el-form-item>
+            <el-form-item label="商品重量" prop="weight">
+                <el-input v-model.number="ruleForm.weight"></el-input>
+            </el-form-item>
+            <el-form-item label="商品数量" prop="counts">
+                <el-input v-model.number="ruleForm.counts"></el-input>
+            </el-form-item>
+            <div class="block" style="margin-bottom:20px;">
+                <span class="demonstration"></span>
+                <el-date-picker v-model="ruleForm.time" align="right" type="date" value-format="yyyy-MM-dd"
+                    placeholder="选择日期" :picker-options="pickerOptions1">
+                </el-date-picker>
+            </div>
+            <el-form-item label="图片地址" prop="src">
+                <el-input v-model="ruleForm.src"></el-input>
+            </el-form-item>
+            <el-form-item>
+                <el-button type="success" @click="submitForm('ruleForm')">修改</el-button>
+            </el-form-item>
+        </el-form>
+    </div>
 </template>
 <script>
     export default {
-
+        data() {
+            return {
+                goodsid: "",
+                ruleForm: {
+                    name: '',
+                    price: '',
+                    weight: '',
+                    counts: '',
+                    time: '',
+                    src:''
+                }
+            }
+        },
+        methods: {
+            submitForm() {
+                this.$refs["ruleForm"].validate(async (valid) => {
+                    // valid为校验结果，全部校验通过是值为true,否则为false
+                    if (valid) {
+                        const { goodsid, ruleForm } = this;
+                        const { data } = await this.$request.put("/goods/" + goodsid, {
+                            ...ruleForm
+                        });
+                        console.log(data)
+                        if (data.code === 1) {
+                            this.$message({
+                                type: "success",
+                                message: "修改成功",
+                            });
+                        }
+                     }
+                     else {
+                        return false;
+                    }
+                });
+                this.$router.push({name:'Goodslist'})
+            }
+        },
+        async created() {
+            const { id } = this.$route.params;
+            const { data } = await this.$request.get("/goods/" + id);
+            // console.log(data)
+            this.goodsid = id;
+            Object.assign(this.ruleForm, data.data);
+        }
     }
 </script>

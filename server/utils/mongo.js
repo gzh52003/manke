@@ -7,7 +7,7 @@ const { MongoClient,ObjectId } = require('mongodb');
 const url = 'mongodb://localhost:27017';
 
 // 数据库名称
-const dbName = 'gzh52003';
+const dbName = 'manke';
 
 
 async function connect(){

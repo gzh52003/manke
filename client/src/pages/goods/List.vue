@@ -18,15 +18,21 @@
             </el-table-column>
             <el-table-column label="#" type="index" width="55">
             </el-table-column>
+            <el-table-column label="商品图片" prop="src" width="100">
+                <template v-slot:default="scope">
+                    <img :src="scope.row.src?scope.row.src:'https://ss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=3496432758,2225654888&fm=11&gp=0.jpg'
+                    " style="width:80px;height:80px;"/>
+                </template>
+            </el-table-column>
             <el-table-column label="商品名称" prop="name" show-overflow-tooltip>
             </el-table-column>
-            <el-table-column prop="price" label="商品价格（元）" width="100">
+            <el-table-column prop="price" label="商品价格（元）" width="80">
             </el-table-column>
-            <el-table-column prop="counts" label="商品数量" width="100">
+            <el-table-column prop="counts" label="商品数量" width="80">
             </el-table-column>
             <el-table-column prop="weight" width="100" label="商品重量">
             </el-table-column>
-            <el-table-column prop="time" label="创建时间">
+            <el-table-column prop="time" label="创建时间" width="160">
             </el-table-column>
             <el-table-column label="操作" width="100">
                 <!-- 获取数据id -->

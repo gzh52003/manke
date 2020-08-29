@@ -20,6 +20,9 @@
           :picker-options="pickerOptions1">
         </el-date-picker>
       </div>
+      <el-form-item label="图片地址" prop="src">
+        <el-input v-model="ruleForm.src"></el-input>
+      </el-form-item>
       <el-form-item>
         <el-button type="success" @click="submitForm('ruleForm')">提交</el-button>
       </el-form-item>
@@ -35,7 +38,8 @@
           price: '',
           weight: '',
           counts: '',
-          time: ''
+          time: '',
+          src:''
         },
         rules: {
           name: [
@@ -95,8 +99,8 @@
             alert('请重新添加');
           }
         })
-          this.$router.push({name:'Goodslist'})
-      }
+        this.$router.push({ name: 'Goodslist' })
+      },
     }
   }
 </script>
