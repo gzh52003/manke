@@ -29,7 +29,11 @@
       <el-table-column type="selection" width="100"></el-table-column>
       <el-table-column prop="id" label="管理员ID" width="120px"></el-table-column>
       <el-table-column label="用户头像" width="120">
-        <el-avatar src="https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png"></el-avatar>
+        <template v-slot:default="scope">
+          <!-- <template slot-scope="scope"> -->
+          <!-- <el-avatar :src="scope.row.avatarUrl?scope.row.avatarUrl: 'https://dss0.bdstatic.com/70cFuHSh_Q1YnxGkpoWK1HF6hhy/it/u=1155772843,599594265&fm=26&gp=0.jpg'"></el-avatar> -->
+          <el-avatar :src="scope.row.avatarUrl?scope.row.avatarUrl: 'https://cube.elemecdn.com/0/88/03b0d39583f48206768a7534e55bcpng.png'"></el-avatar>
+        </template>
       </el-table-column>
       <el-table-column label="用户名" prop="username"></el-table-column>
       <el-table-column prop="age" label="年龄" width="120"></el-table-column>
