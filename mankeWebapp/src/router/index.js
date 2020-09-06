@@ -27,7 +27,22 @@ const routes = [
     path: '/profile',
     name: 'Profile',
     component:()=>import('@/views/profile')
-  }
+  },
+  {
+    path: '/detail/:id',
+    name: 'detail',
+    component:()=>import('../views/detail')
+  },
+  {
+    path: '/order',
+    name: 'order',
+    component:()=>import('../views/cart/order.vue')
+  },
+  // {
+  //   path: '/search',
+  //   name: 'search',
+  //   component:()=>import('@/views/search')
+  // }
 
 
     // 路由按需引入(路由懒加载)

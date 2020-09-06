@@ -2,8 +2,10 @@ import axios from 'axios';
 
 const source = axios.CancelToken.source();
 
+const baseURL = process.env.NODE_ENV === 'development' ? 'http://localhost:2003' : '';
+
 const request = axios.create({
-    baseURL:'http://localhost:2003/api',
+    baseURL:baseURL+'/api',
     withCredentials:true,
 });
 

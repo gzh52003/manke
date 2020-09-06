@@ -43,20 +43,20 @@ export default {
         icon:'user-o',
         text:'我的'
       }]
-    }
-  },
+           }
+        },
   computed:{
     cartLength(){
-      // return this.$store.state.cart.goodslist.length
-    },
+    //   // return this.$store.state.cart.goodslist.length
+                },
     showTabbar(){
       return this.$store.state.common.showTabbar
-    }
-  },
+                }
+           },
   created(){
     // this.$store.dispatch('getCart');
-    console.log(this.$store)
-  }
+    // console.log(this.$store)
+           }
 }
 </script>
 <style lang="scss">
