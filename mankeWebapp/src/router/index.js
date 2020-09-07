@@ -53,6 +53,16 @@ const routes = [
     path: '/edit',
     name: 'Edit',
     component: () => import('@/views/profile/edit')
+  },
+  {
+    path: '/address',
+    name: 'Address',
+    component: () => import('@/views/profile/address')
+  },
+  {
+    path: '/addressEdit',
+    name: 'AddressEdit',
+    component: () => import('@/views/profile/addressEdit')
   }
 ]
 
@@ -70,7 +80,6 @@ router.beforeEach(function (to, from, next) {
     } catch (err) {
       userInfo = {};
     }
-    console.log(userInfo);
     // 判断当前用户信息是否包含token
     if (userInfo.authorization) {
 

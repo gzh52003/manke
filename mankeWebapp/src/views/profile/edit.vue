@@ -5,7 +5,7 @@
         round
         width="10rem"
         height="10rem"
-        :src="avatar?avatar:'https://img.yzcdn.cn/vant/cat.jpeg'"
+        :src="avatar?avatar:'../vant/cat.jpeg'"
       />
       <input type="file" class="form-control-file" @change="avatarChange" style="width:220px" />
     </div>
@@ -108,7 +108,7 @@ export default {
       data.set("_id", id);
       data.set("avatar", e.target.files[0]);
 
-      const result = await this.$request.post("/upload/avatar", data, {
+      const result = await this.$request.post("/upload/user", data, {
         contentType: false,
       });
 

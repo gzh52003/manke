@@ -45,7 +45,9 @@
 <script>
 import Vue from "vue";
 import { Form } from "vant";
+import { Toast } from 'vant';
 
+Vue.use(Toast);
 Vue.use(Form);
 
 export default {
@@ -68,14 +70,16 @@ export default {
         this.formdata.vcode !== ""
       ) {
         const result = await this.$request.get(
-          `/login?username=${this.formdata.username}&password=${this.formdata.password}&vcode=${this.formdata.vcode}&mdl=${this.checked}`
+          `/login/user?username=${this.formdata.username}&password=${this.formdata.password}&vcode=${this.formdata.vcode}&mdl=${this.checked}`
         );
         if (result.data.code === 1) {
           localStorage.setItem("currentUser", JSON.stringify(result.data.data));
           const { redirectTo="/profile" } = this.$route.query;
-          this.$router.replace(redirectTo).catch(()=>{});
+          this.$router.replace(redirectTo);
         } else if (result.data.code === 0) {
-
+          Toast("用户名或密码错误")
+        }else if (result.data.code === 10) {
+          Toast("验证码错误")
         }
       }
     },

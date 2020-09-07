@@ -58,7 +58,7 @@
         <van-icon name="arrow" size="24" />
       </van-col>
     </van-row>
-    <van-row style="height: 50px">
+    <van-row style="height: 50px"  @click="address">
       <van-col span="2">
         <van-icon name="location-o" size="28" />
       </van-col>
@@ -92,6 +92,9 @@ export default {
     logout(){
       this.$router.push({ name: "Login" });
       localStorage.removeItem("currentUser");
+    },
+    address(){
+       this.$router.push({ name: "Address" });
     }
   },
   created() {

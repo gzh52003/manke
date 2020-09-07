@@ -7,6 +7,7 @@
       placeholder="用户名"
       :rules="[{ required: true, message: '请填写用户名' }]"
       style="padding-left: 30px; font-size: 16px"
+      @blur="onBlur"
     />
     <van-field
       v-model="password"
@@ -27,7 +28,7 @@
 </template>
 <script>
 import Vue from "vue";
-import { Form } from "vant";
+import { Form, Toast } from "vant";
 
 Vue.use(Form);
 
@@ -41,26 +42,36 @@ export default {
   methods: {
     async onSubmit(values) {
       var arr = [];
-      for(var key in values){
-        arr.push(values[key])
+      for (var key in values) {
+        arr.push(values[key]);
       }
-      const result = await this.$request.post('/reg',{
-        method:'post',
-        body:({
-          username:arr[0],
-          password:arr[1]
-        }),
+      const result = await this.$request.post("/reg", {
+        method: "post",
+        body: {
+          username: arr[0],
+          password: arr[1],
+        },
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
+      if (result.data.code === 1) {
+        this.$router.push({ name: "Login" });
+      }
+    },
+    login() {
+      this.$router.push({ name: "Login" });
+    },
+    async onBlur() {
+      const result = await this.$request.get(`/reg/check?username=${this.username}`,{
         headers:{
           'Content-Type':'application/json'
         }
-      });
-      if(result.data.code === 1){
-        this.$router.push({name:'Login' });
+      })
+      if(result.data.code === 0){
+          Toast("用户名已存在")     
       }
     },
-    login(){
-      this.$router.push({name:'Login'})
-    }
   },
 };
 </script>
