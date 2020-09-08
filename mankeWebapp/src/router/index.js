@@ -5,8 +5,8 @@ import Home from '../views/home'
 Vue.use(VueRouter)
 const routes = [
   {
-    path:'/',
-    redirect:{name:'Home'}
+    path: '/',
+    redirect: { name: 'Home' }
   },
   {
     path: '/home',
@@ -16,29 +16,28 @@ const routes = [
   {
     path: '/sort',
     name: 'Sort',
-    component:()=>import('@/views/sort')
-  },
-  {
+    component: () => import('@/views/sort'),
+  }, {
     path: '/cart',
     name: 'Cart',
-    component:()=>import('@/views/cart')
+    component: () => import('@/views/cart')
   },
   {
     path: '/profile',
     name: 'Profile',
-    component:()=>import('@/views/profile')
+    component: () => import('@/views/profile')
+  },
+  {
+    path: '/novel',
+    name: 'Novel',
+    component: () => import('@/views/sort/novel')
+  },
+  {
+    path: '/detail',
+    name: 'Detail',
+    component: () => import('@/views/sort/detail')
   }
-
-
-    // 路由按需引入(路由懒加载)
-    // component:function(){
-    //   return import('../views/About.vue')
-    // }
-    // component:()=>import('../views/Reg.vue')
-    // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // }
 ]
-
 const router = new VueRouter({
   routes
 })

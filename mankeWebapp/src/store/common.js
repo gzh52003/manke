@@ -13,7 +13,6 @@ const common = {
         }
     },
     actions:{
-
     }
 }
 
