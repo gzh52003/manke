@@ -18,7 +18,7 @@
         <h4 class="table-content">{{item.name}}</h4>
         <p class="price">
           <span class="left">{{item.price}}</span>
-          <van-icon class="right" name="shopping-cart-o" @click.stop="addCart" />
+          <van-icon class="right" name="shopping-cart-o" @click.stop="addCart(item_id)" />
         </p>
       </van-grid-item>
       <van-pagination class="pagination" v-model="currentPage" :total-items="res" :show-page-size="3"
@@ -81,14 +81,14 @@
         });
         this.data = data.data;
       },
-      addCart() {
+      addCart(id) {
         console.log(1)
         // 添加当前商品到购物车;
         // 判断当前商品是否已经存在购物车中
         // 存在：数量+1
         // 不存在：添加到购物车
         const { _id } = this.data;
-        console.log(this.data)
+        console.log(_id)
         const current = this.cartlist.filter(item => item._id === _id)[0]
         if (current) {
           this.$store.commit('changeQty', { _id, qty: current.qty + 1 })
