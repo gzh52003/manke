@@ -13,65 +13,44 @@ const routes = [
     path: '/home',
     name: 'Home',
     component: Home,
-    meta:{
-      title:'首页'
+    meta: {
+      title: '首页'
     }
   },
   {
     path: '/sort',
     name: 'Sort',
-<<<<<<< HEAD
-    component:()=>import('@/views/sort'),
-    meta:{
-      title:'分类'
+    component: () => import('@/views/sort'),
+    meta: {
+      title: '分类'
     }
   },
   {
     path: '/cart',
     name: 'Cart',
-    component:()=>import('@/views/cart'),
-    meta:{
-      title:'购物车'
+    component: () => import('@/views/cart'),
+    meta: {
+      title: '购物车',
+      requiresAuth: true
     }
-    
+
   },
   {
     path: '/profile',
     name: 'Profile',
-    component:()=>import('@/views/profile'),
-    meta:{
-      title:'我的'
+    component: () => import('@/views/profile'),
+    meta: {
+      title: '我的',
+      requiresAuth: true
     }
   },
   {
     path: '/detail',
     name: 'Detail',
-    component:()=>import('@/views/detail'),
-    meta:{
-      title:'详情'
-    }
-  },
-
-
-
-    // 路由按需引入(路由懒加载)
-    // component:function(){
-    //   return import('../views/About.vue')
-    // }
-    // component:()=>import('../views/Reg.vue')
-    // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
-  // }
-  
-=======
-    component: () => import('@/views/sort'),
-  }, 
-  {
-    path: '/cart',
-    name: 'Cart',
+    component: () => import('@/views/detail'),
     meta: {
-      requiresAuth: true
-    },
-    component: () => import('@/views/cart')
+      title: '详情'
+    }
   },
   {
     path: '/novel',
@@ -79,34 +58,16 @@ const routes = [
     component: () => import('@/views/sort/novel')
   },
   {
-    path: '/detail',
-    name: 'Detail',
-    component: () => import('@/views/sort/detail')
-  },
-  {
-    path: '/detail/:id',
-    name: 'detail',
-    component:()=>import('../views/detail')
-  },
-  {
     path: '/order',
     name: 'order',
-    component:()=>import('../views/cart/order.vue')
-  },
-  {
-    path: '/profile',
-    name: 'profile',
-    meta: {
-      requiresAuth: true
-    },
-    component: () => import('@/views/profile')
+    component: () => import('@/views/cart/order.vue')
   },
   {
     path: '/login',
     name: 'Login',
     component: () => import('@/views/login'),
   },
- 
+
   {
     path: '/reg',
     name: 'Reg',
@@ -127,24 +88,29 @@ const routes = [
     name: 'AddressEdit',
     component: () => import('@/views/profile/addressEdit')
   }
->>>>>>> 191b92474260cb2d024cec9a195d222f57b15643
+
+
+
+  // 路由按需引入(路由懒加载)
+  // component:function(){
+  //   return import('../views/About.vue')
+  // }
+  // component:()=>import('../views/Reg.vue')
+  // component: () => import(/* webpackChunkName: "about" */ '../views/About.vue')
+  // }
+
 ]
 const router = new VueRouter({
   routes
 })
 
-<<<<<<< HEAD
-router.beforeEach((to,from,next)=>{
-  if(to.meta.title="详情"){
-    to.meta.title=""
+router.beforeEach((to, from, next) => {
+  if (to.meta.title = "详情") {
+   
   }
   store.commit('changeTitle', to.meta.title)
   next()
-})
-=======
-router.beforeEach(function (to, from, next) {
-  // 判断目标路由是否需要登录才可访问
-  // if(to.meta.requiresAuth){
+
   if (to.matched.some(item => item.meta.requiresAuth)) {
     let userInfo = localStorage.getItem('currentUser') || {};
     try {
@@ -154,7 +120,7 @@ router.beforeEach(function (to, from, next) {
     }
     // 判断当前用户信息是否包含token
     if (userInfo.authorization) {
-
+  
       // 发起请求校验token的有效性
       request.get('/jwtverify', {
         params: {
@@ -184,8 +150,9 @@ router.beforeEach(function (to, from, next) {
   } else {
     next();
   }
+})
 
+// 判断目标路由是否需要登录才可访问
+// if(to.meta.requiresAuth){
 
-});
->>>>>>> 191b92474260cb2d024cec9a195d222f57b15643
 export default router
