@@ -5,6 +5,10 @@
       <van-swipe-item v-for="item in recommend" :key="item._id">
         <img v-lazy="item" />
       </van-swipe-item>
+
+
+
+      
     </van-swipe>
 
     <!-- 商品类别 -->
@@ -148,6 +152,7 @@ export default {
 }
 .goodslist {
   img {
+
   }
   h4 {
     margin-bottom: 0;

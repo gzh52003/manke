@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+<<<<<<< HEAD
     <!-- 吸顶导航 -->
     <van-sticky offset-top="0" v-model="active">
       <van-nav-bar
@@ -17,6 +18,15 @@
 
     <router-view />
     <van-tabbar v-model="active" route v-show="showTabbar" id="tabbar" @change="tabbarChange">
+=======
+    <!-- <van-nav-bar title="标题" left-text="返回" left-arrow @click-left="onClickLeft">
+      <template #right>
+        <van-icon name="search" size="18" />
+      </template>
+    </van-nav-bar> -->
+    <router-view />
+    <van-tabbar v-model="active" route v-show="showTabbar">
+>>>>>>> 191b92474260cb2d024cec9a195d222f57b15643
       <van-tabbar-item
         :badge="item.name==='cart'?cartLength:''"
         :icon="item.icon"
@@ -28,6 +38,7 @@
   </div>
 </template>
 <script>
+<<<<<<< HEAD
 // document.querySelector("#navBar").scrollTop = document.body.scrollTop
 // window.onscroll=function(){
 //   console.log(document.body.scrollTop);
@@ -49,14 +60,26 @@ import {
   Sticky,
 } from "vant";
 Vue.use(Image);
+=======
+import Vue from 'vue'
+import {Button,Tabbar,NavBar,TabbarItem,Tag, Image, ImagePreview, Field, Checkbox,Toast,Icon,} from 'vant'
+>>>>>>> 191b92474260cb2d024cec9a195d222f57b15643
 Vue.use(Button);
 Vue.use(Tabbar);
+Vue.use(NavBar);
 Vue.use(TabbarItem);
 Vue.use(Tag);
+Vue.use(Image);
+Vue.use(ImagePreview);
 Vue.use(Field);
 Vue.use(Checkbox);
+<<<<<<< HEAD
 Vue.use(NavBar);
 Vue.use(Sticky);
+=======
+Vue.use(Toast);
+Vue.use(Icon);
+>>>>>>> 191b92474260cb2d024cec9a195d222f57b15643
 export default {
   data() {
     return {
@@ -72,7 +95,11 @@ export default {
         {
           name: "sort",
           path: "/sort",
+<<<<<<< HEAD
           icon: "cluster-o",
+=======
+          icon: "eye-o",
+>>>>>>> 191b92474260cb2d024cec9a195d222f57b15643
           text: "分类",
         },
         {
@@ -97,6 +124,7 @@ export default {
     showTabbar() {
       return this.$store.state.common.showTabbar;
     },
+<<<<<<< HEAD
     
     
   },
@@ -112,6 +140,12 @@ export default {
       console.log(1234556);
     },
   },
+=======
+  },
+  methods: {
+    onClickLeft() {},
+  },
+>>>>>>> 191b92474260cb2d024cec9a195d222f57b15643
   created() {
     // this.$store.dispatch('getCart');
     console.log(this.$store);

@@ -1,5 +1,6 @@
 <template>
   <div>
+<<<<<<< HEAD
     <van-swipe class="my-swipe" :autoplay="3000">
       <van-swipe-item>
         <img v-lazy="data.src" />]
@@ -22,12 +23,18 @@
       <br />
       <span>库存:{{data.count}}</span>
     </van-panel>
+=======
+    详情页面
+ 
+
+>>>>>>> 191b92474260cb2d024cec9a195d222f57b15643
   </div>
 </template>
 
 
 
 <script>
+<<<<<<< HEAD
 import Vue from "vue";
 import { Swipe, Panel } from "vant";
 Vue.use(Swipe);
@@ -63,6 +70,11 @@ export default {
   img {
     width: 100%;
   }
+=======
+
+export default {
+  name:'Detail',
+>>>>>>> 191b92474260cb2d024cec9a195d222f57b15643
 }
 #title {
   padding-left: 5px;
