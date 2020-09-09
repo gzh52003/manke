@@ -52,10 +52,14 @@ const routes = [
       title: '详情'
     }
   },
+  
   {
     path: '/novel',
     name: 'Novel',
-    component: () => import('@/views/sort/novel')
+    component: () => import('@/views/sort/novel'),
+    meta: {
+      title: '商品列表'
+    }
   },
   {
     path: '/order',
@@ -105,9 +109,6 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to, from, next) => {
-  if (to.meta.title = "详情") {
-   
-  }
   store.commit('changeTitle', to.meta.title)
   next()
 

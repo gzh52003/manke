@@ -32,7 +32,7 @@
         <p class="price">
           <!-- <del>{{item.price}}</del> -->
           <span>{{item.price}}</span>
-          <van-icon name="shopping-cart-o" />
+          <van-icon style="float:right;font-size:24px;color:red" name="shopping-cart-o" />
         </p>
       </van-grid-item>
     </van-grid>
@@ -151,8 +151,11 @@ export default {
   height: 100%;
 }
 .goodslist {
-  img {
-
+  .price{
+    width: 100%;
+    float: left;
+    color: red;
+    font-weight: 800;
   }
   h4 {
     margin-bottom: 0;

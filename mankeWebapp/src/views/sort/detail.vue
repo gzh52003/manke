@@ -42,6 +42,7 @@
                 const { data } = await this.$request.get("/goods/" + id, {
                 });
                 this.data = data.data;
+                this.$store.commit('changeTitle', this.data.name)
                 //   console.log(this.data)
             },
         },

@@ -80,6 +80,7 @@
         const { data } = await this.$request.get("/goods/" + id, {
         });
         this.data = data.data;
+        this.$store.commit('changeTitle', this.data.name)
       },
       addCart(id) {
         console.log(1)

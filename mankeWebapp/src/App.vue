@@ -105,14 +105,13 @@ export default {
   },
   methods: {
     tabbarChange(e) {
-      console.log(e);
+    
     },
     goBack() {
       this.$router.back(-1)
-      console.log(1234556);
     },
     goSearch() {
-      console.log(1234556);
+      this.$router.push("./novel")
     },
   },
   created() {
