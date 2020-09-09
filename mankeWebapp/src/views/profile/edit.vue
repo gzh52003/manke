@@ -68,9 +68,8 @@ export default {
     return {
       username: "",
       password: "",
-      age: 22,
+      age: "",
       gender: "",
-
       showPicker: false,
       columns: ["男", "女", "保密"],
       imageUrl: "",
@@ -123,6 +122,8 @@ export default {
   created() {
     const res = JSON.parse(localStorage.getItem("currentUser"));
     this.username = res.username;
+    this.gender = res.gender;
+    this.age = res.age;
     this.avatar = res.avatarUrl;
   },
 };

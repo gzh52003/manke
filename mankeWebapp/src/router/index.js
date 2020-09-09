@@ -75,7 +75,7 @@ const routes = [
   {
     path: '/reg',
     name: 'Reg',
-    component: () => import('@/views/login/Reg')
+    component: () => import('@/views/login/reg')
   },
   {
     path: '/edit',
