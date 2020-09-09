@@ -30,7 +30,7 @@
         <input type="checkbox" id="mdl" v-model="checked" />
         <span>7天免登陆</span>
       </label>
-      <span class="input-group-text" style="float:right" v-html="svgcode"></span>
+      <span class="input-group-text" style="float:right" v-html="svgcode" @click="change"></span>
     </div>
     <div style="padding-left: 30px;margin-top:20px; font-size: 14px">
       <span @click="register">新用户？注册</span>
@@ -92,6 +92,9 @@ export default {
         this.svgcode = result.data.data;
       }
     },
+    async change(){
+      this.getVcode()
+    }
   },
   async created() {
     this.getVcode();

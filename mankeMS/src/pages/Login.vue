@@ -27,7 +27,7 @@ export default {
     async handleLodin() {
       if (this.formdata.username !== "" && this.formdata.password !== "") {
         const result = await this.$request.get(
-          `/login?username=${this.formdata.username}&password=${this.formdata.password}`
+          `/login/manager?username=${this.formdata.username}&password=${this.formdata.password}`
         )
         if (result.data.code === 1) {
           localStorage.setItem("currentUser", JSON.stringify(result.data));
