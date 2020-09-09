@@ -23,11 +23,13 @@
       <br />
       <span style="display:block;padding-top:10px">库存:{{data.count}}</span>
     </van-panel>
-    <Title :aaa="abc"></Title>
-    <van-stepper id="stepper" @change="changeQty(data._id,$event)" />
+    <!-- <Title :aaa="abc"></Title> -->
+    <span style="margin-left:10px;padding-top:10px;display:block">数量</span>
+       <van-stepper id="stepper" @change="changeQty(data._id,$event)" input-width="60px" button-size="60px" style="padding-left:10px;margin:5px 0"/>
+   
     <div class="button">
-      <van-button class="button_1" color="#1CBB7F" size="normal" round type="info">立即购买</van-button>
-      <van-button type="info" size="normal" color="#f4a213" round>加入购物车</van-button>
+      <van-button class="button_1" color="#1CBB7F" size="normal" round type="info" style="width:150px">立即购买</van-button>
+      <van-button type="info" size="normal" color="#f4a213" round  style="width:150px">加入购物车</van-button>
     </div>
   </div>
 </template>
@@ -48,7 +50,7 @@ export default {
   name: "Detail",
   data() {
     return {
-      abc: "asfdasfsafasfafsdfsdgfsd",
+      // abc: "asfdasfsafasfafsdfsdgfsd",
       data: {},
     };
   },
@@ -114,10 +116,7 @@ export default {
 }
 
 #stepper{
-.van-stepper__plus,.van-stepper__minus, .van-stepper__input{
-  height: 100px;
-  width: 100px;
-}
+font-size: 30px;
 }
 
 .goods-info {
@@ -130,7 +129,7 @@ export default {
 }
 
 .button {
-  padding-left: 28px;
+  padding-left: 10px;
 }
 
 .button_1 {
