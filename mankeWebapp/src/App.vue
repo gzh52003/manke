@@ -1,12 +1,22 @@
 <template>
   <div id="app">
-    <van-nav-bar title="标题" left-text="返回" left-arrow @click-left="onClickLeft">
-      <template #right>
-        <van-icon name="search" size="18" />
-      </template>
-    </van-nav-bar>
+    <!-- 吸顶导航 -->
+    <van-sticky offset-top="0" v-model="active">
+      <van-nav-bar
+        class="title-class"
+        :title="$store.state.common.navTitle"
+        left-text
+        right-text="按钮"
+        left-arrow
+        @click-left="goBack"
+        @click-right="goSearch"
+      >
+        <van-icon name="search" slot="right" />
+      </van-nav-bar>
+    </van-sticky>
+
     <router-view />
-    <van-tabbar v-model="active" route v-show="showTabbar">
+    <van-tabbar v-model="active" route v-show="showTabbar" id="tabbar" @change="tabbarChange">
       <van-tabbar-item
         :badge="item.name==='cart'?cartLength:''"
         :icon="item.icon"
@@ -18,29 +28,38 @@
   </div>
 </template>
 <script>
+// document.querySelector("#navBar").scrollTop = document.body.scrollTop
+// window.onscroll=function(){
+//   console.log(document.body.scrollTop);
+
+// }
+// console.log(document.body.scrollTop);
+
 import Vue from "vue";
 import {
   Button,
   Tabbar,
-  NavBar,
   TabbarItem,
   Tag,
   Image,
   ImagePreview,
   Field,
   Checkbox,
-  Toast,
-  Icon,
+  NavBar,
+  Sticky,
 } from "vant";
 Vue.use(Image);
 Vue.use(Button);
 Vue.use(Tabbar);
+Vue.use(NavBar);
 Vue.use(TabbarItem);
 Vue.use(Tag);
+Vue.use(Image);
+Vue.use(ImagePreview);
 Vue.use(Field);
 Vue.use(Checkbox);
 Vue.use(NavBar);
-Vue.use(Icon);
+Vue.use(Sticky);
 export default {
   data() {
     return {
@@ -56,7 +75,7 @@ export default {
         {
           name: "sort",
           path: "/sort",
-          icon: "eye-o",
+          icon: "cluster-o",
           text: "分类",
         },
         {
@@ -81,9 +100,20 @@ export default {
     showTabbar() {
       return this.$store.state.common.showTabbar;
     },
+    
+    
   },
   methods: {
-    onClickLeft() {},
+    tabbarChange(e) {
+      console.log(e);
+    },
+    goBack() {
+      this.$router.back(-1)
+      console.log(1234556);
+    },
+    goSearch() {
+      console.log(1234556);
+    },
   },
   created() {
     // this.$store.dispatch('getCart');
@@ -92,6 +122,25 @@ export default {
 };
 </script>
 <style lang="scss">
+.title-class {
+  height: 32px;
+  .van-nav-bar__title {
+    font-size: 18px;
+  }
+  .van-nav-bar__arrow {
+    font-size: 24px;
+  }
+  .van-nav-bar__right {
+    font-size: 24px;
+  }
+}
+#navBar {
+  height: 32px;
+}
+#tabbar {
+  position: flex;
+  bottom: 0;
+}
 .price {
   del {
     color: #999;
