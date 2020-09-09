@@ -107,7 +107,7 @@ export default {
       data.set("_id", id);
       data.set("avatar", e.target.files[0]);
      
-      const result = await this.$request.post("/upload/avatar", data, {
+      const result = await this.$request.post("/uploads/manager", data, {
         contentType: false,
       }); 
 
