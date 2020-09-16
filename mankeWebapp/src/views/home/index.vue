@@ -11,6 +11,10 @@
       
     </van-swipe>
 
+    <van-button @click="back" style="position:fixed;right:0;bottom:100px;color:#cccccc;z-index:99">
+      <van-icon name="arrow-up" />
+    </van-button>
+
     <!-- 商品类别 -->
     <van-grid column-num="4">
       <van-grid-item :key="item.name" v-for="item in categray">
@@ -32,16 +36,20 @@
         <p class="price">
           <!-- <del>{{item.price}}</del> -->
           <span>{{item.price}}</span>
-          <van-icon style="float:right;font-size:24px;color:red" name="shopping-cart-o" />
+          <van-icon @click="addCart" style="float:right;font-size:24px;color:red" name="shopping-cart-o" />
         </p>
       </van-grid-item>
+      <van-pagination class="pagination" v-model="currentPage" :total-items="res" :show-page-size="3"
+      :items-per-page="4" force-ellipses @change="pageChange"  style="position:relative;left:65px"/>
     </van-grid>
+
+    
   </div>
 </template>
 
 <script>
 import Vue from "vue";
-import { Swipe, SwipeItem, Lazyload, Grid, GridItem, Image, Icon } from "vant";
+import { Swipe, SwipeItem, Lazyload, Grid, GridItem, Image, Icon,Pagination } from "vant";
 Vue.use(Swipe);
 Vue.use(SwipeItem);
 Vue.use(Lazyload);
@@ -49,11 +57,12 @@ Vue.use(Grid);
 Vue.use(GridItem);
 Vue.use(Image);
 Vue.use(Icon);
+Vue.use(Pagination);
 
-function dealStr(data) {
-  let { str, begin, end } = data;
-  return parseInt(str.slice(begin, end));
-}
+// function dealStr(data) {
+//   let { str, begin, end } = data;
+//   return parseInt(str.slice(begin, end));
+// }
 
 export default {
   name: "Home",
@@ -108,28 +117,46 @@ export default {
         },
       ],
       goodslist: [],
+      currentPage:1,
+      res:1,
     };
   },
   components: {},
+  
   methods: {
-    gotoDetail(id) {
-      // this.$router.push(`/goods/${id}`)
-      this.$router.push({path:'/detail',query:{id}});
-      // this.$router.push({
-      //   name: "Detail",
-      //   params: {
-      //     id,
-      //   },
-      // });
+    addCart(e){
+      console.log(e.target);
     },
+    gotoDetail(id) {
+      this.$router.push({path:'/detail',query:{id}});
+    },
+
+    back() {
+      //window.scrollY = 0;
+      var timer = setInterval(function () {
+          if (scrollY <= 0) {
+            clearInterval(timer);
+          }
+          scrollTo({ top: scrollY - 500 });
+        }, 100);
+    },
+
+    async pageChange(currentPage) {
+        const { data } = await this.$request.get(`/goods?size=4&page=${currentPage}`)
+        this.goodslist = data;
+        console.log(data)
+      },
   },
+
   async created() {
     // 列表数据
-    const data = await this.$request.get("/goods");
-    data.data.forEach((i) => {
-      let a;
-      i.price = dealStr((a = { str: `${i.price}`, begin: 1 }));
-    });
+    // const data = await this.$request.get("/goods");
+    const data = await this.$request.get("/goods?size=18&page=1");
+      
+      const lis = await this.$request.get('/goods')
+      const res = lis.data.length
+      this.res = res
+      const { id } = this.$route.params;
     this.goodslist = data.data;
     console.log(this.goodslist);
   },

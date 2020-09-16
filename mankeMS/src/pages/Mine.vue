@@ -16,9 +16,9 @@
       </el-form-item>
       <el-form-item label="性别" prop="gender">
         <el-select v-model="ruleForm.gender">
-          <el-option label="男" value="male"></el-option>
-          <el-option label="女" value="female"></el-option>
-          <el-option label="保密" value="baomi"></el-option>
+          <el-option label="男" value="男"></el-option>
+          <el-option label="女" value="女"></el-option>
+          <el-option label="保密" value="保密"></el-option>
         </el-select>
       </el-form-item>
       <el-form-item label="年龄" prop="age">

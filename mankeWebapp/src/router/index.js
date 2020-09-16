@@ -70,17 +70,26 @@ const routes = [
     path: '/login',
     name: 'Login',
     component: () => import('@/views/login'),
+    meta: {
+      title: '用户登录'
+    }
   },
 
   {
     path: '/reg',
     name: 'Reg',
-    component: () => import('@/views/login/Reg')
+    component: () => import('@/views/login/Reg'),
+    meta: {
+      title: '用户注册'
+    }
   },
   {
     path: '/edit',
     name: 'Edit',
-    component: () => import('@/views/profile/edit')
+    component: () => import('@/views/profile/edit'),
+    meta: {
+      title: '用户信息'
+    }
   },
   {
     path: '/address',
@@ -105,6 +114,7 @@ const routes = [
 
 ]
 const router = new VueRouter({
+  mode:"history",
   routes
 })
 

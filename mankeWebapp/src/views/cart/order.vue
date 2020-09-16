@@ -47,8 +47,8 @@
           
         </template>
       </van-card>
-      <van-submit-bar :price="totalPrice" button-text="提交订单" >
-      <van-checkbox v-model="checkAll">全选</van-checkbox>
+      <van-submit-bar  button-text="提交订单" >
+      <van-checkbox >全选</van-checkbox>
      
     </van-submit-bar>
      

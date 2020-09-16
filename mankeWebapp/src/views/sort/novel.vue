@@ -13,17 +13,17 @@
       <span>人气</span>
     </ul>
     <van-grid :border="false" :column-num="2" class="goodslist" :center="false">
-      <van-grid-item v-for="item in goodslist" :key="item._id" @click="gotoDetail(item._id)">
+      <van-grid-item v-for="item in datalist" :key="item._id" @click="gotoDetail(item._id)">
         <van-image :src="item.src" />
         <h4 class="table-content">{{item.name}}</h4>
         <p class="price">
           <span class="left">{{item.price}}</span>
-          <van-icon class="right" name="shopping-cart-o" @click.stop="addCart(item_id)" />
+          <van-icon class="right" name="shopping-cart-o" />
         </p>
       </van-grid-item>
-      <van-pagination class="pagination" v-model="currentPage" :total-items="res" :show-page-size="3"
-      :items-per-page="4" force-ellipses @change="pageChange" />
     </van-grid>
+    <van-pagination class="pagination" v-model="currentPage" :total-items="res" :show-page-size="3" :items-per-page="4"
+      force-ellipses @change="pageChange" />
   </div>
 </template>
 <script>
@@ -45,15 +45,12 @@
         value: '',
         currentPage: 1,
         res: 1,
-        data: {}
+        data: {},
+        code: '',
+        datalist: []
       };
     },
     components: {},
-    computed: {
-      cartlist() {
-        return this.$store.state.cart.goodslist;
-      }
-    },
     methods: {
       async onSearch(value) {
         Toast(value);
@@ -62,66 +59,40 @@
         const { data } = await this.$request.get('/goods', {
         })
         var res = data;
-        this.goodslist = res.filter(item => input.test(item.name))
+        this.datalist = res.filter(item => input.test(item.name))
         console.log(this.goodslist)
       },
       onCancel() {
         Toast('取消');
-        // const goodslist = await this.$request.get("/goods");
-        // this.goodslist = goodslist.data;
       },
       async pageChange(currentPage) {
         const { data } = await this.$request.get(`/goods?size=4&page=${currentPage}`)
-        this.goodslist = data;
+        this.datalist = data;
         console.log(data)
-      },
-      async getData(id) {
-        // console.log('source=', this.$request.source)
-        const { data } = await this.$request.get("/goods/" + id, {
-        });
-        this.data = data.data;
-        this.$store.commit('changeTitle', this.data.name)
-      },
-      addCart(id) {
-        console.log(1)
-        // 添加当前商品到购物车;
-        // 判断当前商品是否已经存在购物车中
-        // 存在：数量+1
-        // 不存在：添加到购物车
-        const { _id } = this.data;
-        console.log(_id)
-        const current = this.cartlist.filter(item => item._id === _id)[0]
-        if (current) {
-          this.$store.commit('changeQty', { _id, qty: current.qty + 1 })
-        } else {
-          const goods = {
-            ...this.data,
-            qty: 1
-          }
-          // 调用mutation方法
-          this.$store.commit('add', goods);
-        }
       },
       gotoDetail(id) {
         this.$router.push({
           name: 'Detail',
-          params: {
+          query: {
             id
           }
-        }) 
+        })
       },
     },
     async created() {
+      // 分类
+      const lis = await this.$request.get("/goods")
+      var response = lis.data;
+      const { id } = this.$route.query;
+      this.datalist = response.filter((item) => item.id == id)
+
+      const res = lis.data.length
+      this.res = res
+      // console.log(res)
       // 列表数据
       const goodslist = await this.$request.get("/goods?size=4&page=1");
       this.goodslist = goodslist.data;
-      const lis = await this.$request.get('/goods')
-      const res = lis.data.length
-      this.res = res
-      const { id } = this.$route.params;
-      // console.log("$route=", this.$route);
-      // console.log("this=", this);
-      this.getData(id);
+      // console.log(lis)
     }
   }
 </script>

@@ -1,0 +1,29 @@
+
+{
+    "username" : "qq",
+    "password" : "123",
+    "id" : 2,
+    "status" : 0,
+    "age" : 78,
+    "gender" : "female",
+    "avatarUrl" : "/uploads/avatar-1599623326100.jpg"
+}
+
+{
+    "username" : "mm",
+    "password" : "123",
+    "id" : 3,
+    "status" : 0,
+    "age" : 90,
+    "gender" : "male",
+    "avatarUrl" : "/uploads/avatar-1599623794039.jpg"
+}
+
+{
+    "username" : "bb",
+    "password" : "123",
+    "id" : 4,
+    "status" : 0,
+    "age" : 20,
+    "gender" : "female"
+}

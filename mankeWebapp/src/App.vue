@@ -14,8 +14,9 @@
         <van-icon name="search" slot="right" />
       </van-nav-bar>
     </van-sticky>
-
-    <router-view />
+    <!-- 路由出口 -->
+    <router-view id="content" />
+    <!-- 底部导航 -->
     <van-tabbar v-model="active" route v-show="showTabbar" id="tabbar" @change="tabbarChange">
       <van-tabbar-item
         :badge="item.name==='cart'?cartLength:''"
@@ -63,7 +64,9 @@ Vue.use(Sticky);
 export default {
   data() {
     return {
+      user:'',
       active: 0,
+      no: false,
       // showMenu:true,
       menu: [
         {
@@ -95,28 +98,53 @@ export default {
   },
   computed: {
     cartLength() {
-      // return this.$store.state.cart.goodslist.length
+      console.log(this.$store.state.goodslist);
+      if (this.no) {
+        return null
+      } else {
+        return this.$store.state.cart.goodslist;
+      }
     },
     showTabbar() {
       return this.$store.state.common.showTabbar;
     },
-    
-    
   },
   methods: {
+    async goods(user) {
+      console.log(user);
+      const data = await this.$request.get(`./cart?username=${user}`);
+      return data.data;
+      // return this.$store.state.goodsdata;
+    },
     tabbarChange(e) {
-    
+      // console.log(e);
+      if (e === 2) {
+        this.no = true
+      }
     },
     goBack() {
-      this.$router.back(-1)
+      this.$router.back(-1);
     },
     goSearch() {
-      this.$router.push("./novel")
+      // console.log(this.$router.currentRoute.meta.title);
+     if( this.$router.currentRoute.meta.title=="商品列表"){
+       return
+     }
+      this.$router.push("./novel");
     },
   },
-  created() {
+  async created() {
+    this.user = JSON.parse(localStorage.getItem("currentUser"));
+    if(this.user){
+    console.log("username:", this.user.username);
+    const goodsdata = await this.goods(this.user.username);
+    console.log("初始化");
+    this.$store.commit("initCart", goodsdata.length);
+    console.log(goodsdata);
+    }
+    
     // this.$store.dispatch('getCart');
-    console.log(this.$store);
+    // console.log(this.$store);
   },
 };
 </script>
@@ -154,6 +182,9 @@ export default {
       content: "￥";
     }
   }
+}
+#content {
+  padding-bottom: 50px;
 }
 </style>
 

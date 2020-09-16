@@ -1,9 +1,9 @@
 <template>
   <div>
     <!-- 图片展示 -->
-    <van-swipe class="my-swipe" :autoplay="3000">
+    <van-swipe class="my-swipe">
       <van-swipe-item>
-        <img v-lazy="data.src" />]
+        <img v-lazy="data.src" />
       </van-swipe-item>
     </van-swipe>
     <!-- 商品内容 -->
@@ -25,12 +25,21 @@
     </van-panel>
     <!-- <Title :aaa="abc"></Title> -->
     <span style="margin-left:10px;padding-top:10px;display:block">数量</span>
-       <van-stepper id="stepper" @change="changeQty(data._id,$event)" input-width="60px" button-size="60px" style="padding-left:10px;margin:5px 0"/>
-   
-    <div class="button">
-      <van-button class="button_1" color="#1CBB7F" size="normal" round type="info" style="width:150px">立即购买</van-button>
-      <van-button type="info" size="normal" color="#f4a213" round  style="width:150px">加入购物车</van-button>
-    </div>
+    <van-stepper
+      v-model="num"
+      id="stepper"
+      input-width="60px"
+      button-size="60px"
+      style="padding-left:10px;margin:5px 0"
+    />
+
+    <van-goods-action>
+      <van-goods-action-icon icon="home-o" text="首页" color="#07c160" @click="goHome" />
+      <van-goods-action-icon icon="cart-o" text="购物车" @click="goCart" />
+      <van-goods-action-icon icon="chat-o" text="客服" color="#ff5000" />
+      <van-goods-action-button type="warning" text="加入购物车" @click="()=>{addCart(data._name)}" />
+      <van-goods-action-button type="danger" text="立即购买" />
+    </van-goods-action>
   </div>
 </template>
 
@@ -38,18 +47,31 @@
 
 <script>
 import Vue from "vue";
-import { Swipe, Panel, Button, Stepper } from "vant";
+import {
+  Swipe,
+  Panel,
+  Button,
+  Stepper,
+  GoodsAction,
+  GoodsActionIcon,
+  GoodsActionButton,
+} from "vant";
 import Title from "./title";
 Vue.use(Title);
 Vue.use(Swipe);
 Vue.use(Panel);
 Vue.use(Button);
 Vue.use(Stepper);
+Vue.use(GoodsAction);
+Vue.use(GoodsActionButton);
+Vue.use(GoodsActionIcon);
 
 export default {
   name: "Detail",
   data() {
     return {
+      user:"",
+      num: 1,
       // abc: "asfdasfsafasfafsdfsdgfsd",
       data: {},
     };
@@ -65,22 +87,63 @@ export default {
     },
   },
   methods: {
-    changeQty(id, qty) {
-      this.$store.commit("changeQty", { _id: id, qty });
-      // this.$store.dispatch('changeQtyAsync',{_id:id,qty})
+    async addCart(name) {
+      console.log("id:", this.data._id);
+      const back = await this.$request.get(`./cart?id=${this.data._id}`);
+      console.log("length:", back.data.length);
+      console.log("this.num",this.num);
+      if (back.data.length !== 0) {
+        console.log("由内容");
+        console.log("back.data[0].count:",back.data[0].count);
+        const count = back.data[0].count*1 + this.num;
+        // console.log("data.count:",back.data[0].count);
+        console.log("count",count);
+        await this.$request.put("./cart", { id:this.data._id, count: count ,goodsId:true});
+      } else {
+        console.log("没有内容");
+        const a= await this.$request.post("./cart", {
+          username:`${this.user.username}`,
+          id:`${this.data._id}`,
+          name: `${this.data.name}`,
+          price: `${this.data.price}`,
+          src: `${this.data.src}`,
+          count: `${this.num}`,
+        });
+        // console.log("a:",a);
+        console.log("添加");
+      }
     },
+    // changeQty(id, qty) {
+    //   this.$store.commit("changeQty", { _id: id, qty });
+    //   // this.$store.dispatch('changeQtyAsync',{_id:id,qty})
+    // },
     async getData(id) {
       const data = await this.$request.get("/goods/" + id);
       this.data = data.data.data;
       this.$store.commit("changeTitle", this.data.name);
     },
+    goHome() {
+      // console.log(this.$route);
+      return this.$router.push("../home");
+    },
+    goCart() {
+      return this.$router.push("../cart");
+    },
   },
 
   async created() {
     console.log("$route=", this.$route.query);
+    this.user=JSON.parse(localStorage.getItem("currentUser"))
+    console.log("this.user.username",this.user.username);
     const { id } = this.$route.query;
     console.log(id);
     this.getData(id);
+  },
+  mounted() {
+    this.$store.commit("displayTabbar", false);
+  },
+  destroyed() {
+    this.$store.commit("displayTabbar", true);
   },
 };
 </script>
@@ -115,8 +178,8 @@ export default {
   }
 }
 
-#stepper{
-font-size: 30px;
+#stepper {
+  font-size: 30px;
 }
 
 .goods-info {
